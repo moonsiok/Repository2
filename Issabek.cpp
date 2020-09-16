@@ -29,7 +29,7 @@ void func(int t1)
     cin >> t1.length;
     cout << "enter the diameter" << endl;
     cin >> t1.diameter;
-    return t1;
+    
 };
 void func2(int k1)
 {
@@ -40,7 +40,7 @@ void func2(int k1)
     cin >> k1.kol_cekhov;
     cout << "enter the efficiency" << endl;
     cin >> k1.efficiency;
-    return k1;
+   
 };
 int main()
 {
