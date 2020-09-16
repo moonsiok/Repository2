@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <conio.h>
 using std::cout;using std::cin;
 using std::string;
 using std::endl;
@@ -30,8 +31,8 @@ void func()
     cin >> t1.length;
     cout << "enter the diameter" << endl;
     cin >> t1.diameter;
-    bool b(false);
-    if (b)
+    bool v_remonte(false);
+    if (v_remonte)
         cout << "Truba v remonte" << endl;
     else
         cout << "Truba rabotaet" << endl;
@@ -49,12 +50,13 @@ void func2()
 }
 int main()
 {
-    ofstream fin;
-    fin.open("filename", ios::in);
-    if (fin.is_open())
+    ofstream fout;
+    fout.open("filename", ios::in);
+    if (fout.is_open())
     {
-        fin >> i >> d >> ch >> str;
-        fin.close();
+        fout >> i >> d >> ch >> str;
+        fout.close();
     }
+    getch();
     return 0;
 }
