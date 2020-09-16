@@ -22,14 +22,14 @@ struct KC
     string efficiency;
 };
 
-void func()
+void func(int t1)
 {
     Truba t1;
     cout << "enter the length" << endl;
     cin >> t1.length;
     cout << "enter the diameter" << endl;
     cin >> t1.diameter;
-    return 0;
+    return t1;
 };
 void func2(int k1)
 {
