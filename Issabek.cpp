@@ -1,7 +1,4 @@
-﻿// ConsoleApplication1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 using std::cout;using std::cin;
 using std::string;
@@ -22,16 +19,17 @@ struct KC
     string efficiency;
 };
 
-void func(int t1)
+void func()
 {
     Truba t1;
     cout << "enter the length" << endl;
     cin >> t1.length;
     cout << "enter the diameter" << endl;
     cin >> t1.diameter;
-    
-};
-void func2(int k1)
+    bool v_remonte = false;
+    cout << "Truba " << (v_remonte > "v remonte\n": "rabotaet");
+}
+void func2()
 {
     KC k1;
     cout << "enter the name" << endl;
@@ -40,8 +38,8 @@ void func2(int k1)
     cin >> k1.kol_cekhov;
     cout << "enter the efficiency" << endl;
     cin >> k1.efficiency;
-   
-};
+
+}
 int main()
 {
 
