@@ -1,4 +1,7 @@
-﻿#include <iostream>
+﻿// ConsoleApplication1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+
+#include <iostream>
 #include <string>
 using std::cout;using std::cin;
 using std::string;
@@ -26,8 +29,11 @@ void func()
     cin >> t1.length;
     cout << "enter the diameter" << endl;
     cin >> t1.diameter;
-    bool v_remonte = false;
-    cout << "Truba " << (v_remonte > "v remonte\n": "rabotaet");
+    bool b(false);
+    if (b)
+        cout << "Truba v remonte" << endl;
+    else
+        cout << "Truba rabotaet" << endl;
 }
 void func2()
 {
@@ -44,4 +50,3 @@ int main()
 {
 
 }
-
