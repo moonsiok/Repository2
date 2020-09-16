@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using std::cout;using std::cin;
 using std::string;
 using std::endl;
@@ -48,5 +49,12 @@ void func2()
 }
 int main()
 {
-
+    ofstream fin;
+    fin.open("filename", ios::in);
+    if (fin.is_open())
+    {
+        fin >> i >> d >> ch >> str;
+        fin.close();
+    }
+    return 0;
 }
