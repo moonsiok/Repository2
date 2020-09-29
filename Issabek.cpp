@@ -5,9 +5,7 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
-using std::cout;using std::cin;
-using std::string;
-using std::endl;
+using namespace std;
 struct Truba
 {
     string identificator;
@@ -24,7 +22,7 @@ struct KC
     string efficiency;
 };
 
-void func()
+void func(t1)
 {
     Truba t1;
     cout << "enter the length" << endl;
@@ -36,8 +34,9 @@ void func()
         cout << "Truba v remonte" << endl;
     else
         cout << "Truba rabotaet" << endl;
+    return t1;
 }
-void func2()
+void func2(k1)
 {
     KC k1;
     cout << "enter the name" << endl;
@@ -46,8 +45,28 @@ void func2()
     cin >> k1.kol_cekhov;
     cout << "enter the efficiency" << endl;
     cin >> k1.efficiency;
-
+    return k1;
 }
+
+Truba read_from_file() {
+    ifstream fin;
+    fin.open("info.txt", ios::in);
+    if (fin.is_open())
+        Truba t1;
+    fin >> t1.length >> t1.diameter;
+    fin.close();
+    return t1;
+}
+void write_to_file(Truba)
+{ ofstream fout;
+fout.open("filename", ios::in);
+if (fout.is_open())
+{
+    fout >> i >> d >> ch >> str;
+    fout.close();
+}
+getch();
+return 0; }
 int main()
 {
     ofstream fout;
