@@ -6,10 +6,10 @@
 using namespace std;
 struct Pipes
 {
-    int id;  
+    int id=0;  
     int length=0;
     int diameter=0;
-    bool in_repairing = false;
+    bool in_repairing;
 };
  
 struct KC
@@ -42,19 +42,15 @@ return value;
 }
 
 Pipes InputPipes()
-{
-    Pipes p1;
-
-    
+{   Pipes p1;
     cout << "\t*Pipes*\n";
     p1.id = rand() % 100 + 1;//https://www.cplusplus.com/reference/cstdlib/rand/
-    cout << "ID of the new pipe: " << p1.id << endl;
+    cout << "the ID of the new pipe: " << p1.id << endl;
     cout << "enter the length(in mm)\n";
     RightValue(p1.length);
     cout << "enter the diameter(in mm)\n";
     RightValue(p1.diameter);
-    
-        bool in_repairing(true);
+    bool in_repairing(true);
         if (in_repairing)
             cout << "the pipe works\n" << endl;
         else
@@ -66,12 +62,10 @@ Pipes InputPipes()
     }
 
 
+
 Pipes LoadPipes()
-{
-    Pipes p1;
+{   Pipes p1;
     ifstream fin;
-    
-    
     fin.open("pipes.txt", ios::in);
     if (fin.is_open())
     {
@@ -80,76 +74,58 @@ Pipes LoadPipes()
         fin >> p1.diameter;
         fin.close();
     }
+    else
+    {
+        cout << "the file was not found"<<endl;
+    }
     return p1;
 }
 
 void SavePipes(const Pipes& p1)
-
-{
-    ofstream fout;
+{   ofstream fout;
     fout.open("pipes.txt", ios::out);
     if (fout.is_open())
     {
         fout << p1.id << endl;
         fout << p1.length << endl;
-
         fout << p1.diameter << endl;
-
-        bool in_repairing(true);
-        if (in_repairing)
-            fout << "the pipe works" << endl;
-        else
-            fout << "the pipe is under repair" << endl;
-
-        fout.close();
-        
+        fout << p1.in_repairing << endl;
+        fout.close();  
+    }
+    else
+    {
+        cout << "the file was not found" << endl;
+    }
+}
+void EditPipes(Pipes& p1)
+{
+    if (p1.in_repairing == 1) {
+        p1.in_repairing = 0;
+        cout << "the pipe works\n";
+    }
+    else {
+        p1.in_repairing = 1;
+        cout << "the pipe is under repair\n";
     }
 }
 void PrintPipes(const Pipes& p1)
 {
 
     cout << "\t*Pipes*\n";
-    cout << "ID of the pipe: " << p1.id << endl;
+    cout << "the ID of the pipe: " << p1.id << endl;
     cout << "the length: " << p1.length << endl;
 
     cout << "the diameter: " << p1.diameter << endl;
-
-    bool in_repairing(true);
+    
+   bool in_repairing(true);
     if (in_repairing)
-        cout << "the pipe works" << endl;
+       cout << p1.in_repairing << endl; 
     else
         cout << "the pipe is under repair" << endl;
    
 }
 
-int EditPipe(const Pipes& p1)
-{
-    while (1)
-    {
-        int a; int length = 0; int diameter = 0;
-        cin >> a;
-        switch (a)
-        {
-        case 1:
-        {cout << "enter the length. "; RightValue(length);  
-        break;
-        }
-        case 2:
-        { cout << "enter the diameter. "; RightValue(diameter);  
-        break;
-        }
-        case 3:
-        {bool in_repairing = true;
-        break;
-        }
-        case 0:
-        {SavePipes(p1);
-        break;
-        }
-        return 0;
-        }
-    }
-}
+
 
     KC InputKC()
 {
@@ -278,24 +254,9 @@ int EditPipe(const Pipes& p1)
             break;
             }
             case 4:
-            {cout << "Enter the ID of the pipe you want to edit. ";
-            int enter_id;
-            RightValue(enter_id);
-            do
-            {
-                cout << "Enter the right ID!";
-            } while (p1.id != enter_id);
-            cout << "Which parameter do you want to edit?\n";
-            int PipeEdit = 0;
-            do
-            {
-                cout << "1. The length" << endl
-                    << "2. The diameter" << endl
-                    << "3. The repairing status" << endl
-                    << "0. Save All" << endl;
-                cin >> PipeEdit;
-            } while (PipeEdit < 0 || PipeEdit>3);
-            EditPipe(p1); SavePipes(p1);break;
+            {PrintPipes(LoadPipes());
+            EditPipes(p1); 
+            break;
             }
             case 5:
             {//EditKC();
