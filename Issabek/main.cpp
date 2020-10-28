@@ -9,7 +9,7 @@ struct Pipes
     int id=0;  
     int length=0;
     int diameter=0;
-    bool in_repairing;
+    bool UnderRepair=false;
 };
  
 struct KC
@@ -50,18 +50,15 @@ Pipes InputPipes()
     RightValue(p1.length);
     cout << "enter the diameter(in mm)\n";
     RightValue(p1.diameter);
-    bool in_repairing(true);
-        if (in_repairing)
+    if (false==p1.UnderRepair)
             cout << "the pipe works\n" << endl;
-        else
+    else
             cout << "the pipe is under repair\n" << endl;
 
         cout << "Do not forget to save the new created pipe! Choose 3 in the menu\n"; 
 
     return p1;
-    }
-
-
+ }
 
 Pipes LoadPipes()
 {   Pipes p1;
@@ -72,6 +69,7 @@ Pipes LoadPipes()
         fin >> p1.id;
         fin >> p1.length;
         fin >> p1.diameter;
+        fin >> p1.UnderRepair;
         fin.close();
     }
     else
@@ -89,7 +87,7 @@ void SavePipes(const Pipes& p1)
         fout << p1.id << endl;
         fout << p1.length << endl;
         fout << p1.diameter << endl;
-        fout << p1.in_repairing << endl;
+        fout << p1.UnderRepair << endl;
         fout.close();  
     }
     else
@@ -97,17 +95,19 @@ void SavePipes(const Pipes& p1)
         cout << "the file was not found" << endl;
     }
 }
+
 void EditPipes(Pipes& p1)
 {
-    if (p1.in_repairing == 1) {
-        p1.in_repairing = 0;
-        cout << "the pipe works\n";
+    if (p1.UnderRepair == 1) {
+        p1.UnderRepair = 0;
+        cout << "the pipe works now\n";
     }
     else {
-        p1.in_repairing = 1;
-        cout << "the pipe is under repair\n";
+        p1.UnderRepair = 1;
+        cout << "the pipe is under repair now\n";
     }
 }
+
 void PrintPipes(const Pipes& p1)
 {
 
@@ -116,12 +116,10 @@ void PrintPipes(const Pipes& p1)
     cout << "the length: " << p1.length << endl;
 
     cout << "the diameter: " << p1.diameter << endl;
-    
-   bool in_repairing(true);
-    if (in_repairing)
-       cout << p1.in_repairing << endl; 
+    if (false == p1.UnderRepair)
+        cout << "the pipe works\n" << endl;
     else
-        cout << "the pipe is under repair" << endl;
+        cout << "the pipe is under repair\n" << endl;
    
 }
 
@@ -219,12 +217,14 @@ void PrintPipes(const Pipes& p1)
     
     void PrintMenu()
     {
-        cout << "\n1. Add Pipes" << endl
+        cout << "\n1. Add a new pipe" << endl
             << "2. Add the CS" << endl
             << "3. Save All" << endl
-            << "4. Edit Pipes" << endl
+            << "4. Edit the pipe" << endl
             << "5. Edit the CS" << endl
-            << "6. View All Objects" << endl
+            << "6. View the pipe" << endl
+            << "7. View the CS" << endl
+            << "8. View All" << endl
             << "0. Exit" << endl<<endl;
 
     }
@@ -235,8 +235,13 @@ void PrintPipes(const Pipes& p1)
         while (1)
         {
             PrintMenu();
-            int i = 0;
-            cin >> i;
+            int i=9;
+            do
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cin >> i;
+            } while (i > 8 || i < 0);
             switch (i)
             {
             case 1:
@@ -254,7 +259,7 @@ void PrintPipes(const Pipes& p1)
             break;
             }
             case 4:
-            {PrintPipes(LoadPipes());
+            {//PrintPipes(LoadPipes());
             EditPipes(p1); 
             break;
             }
