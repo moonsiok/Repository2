@@ -1,5 +1,5 @@
-	*KC*
-enter the name: 10
-enter the number of workshops: 10
-enter the number of workshops in operation: 10
-rate the efficiency from 0 to 10: 10
+	*Compressor Station*
+enter the name: 
+enter the number of workshops: 0
+enter the number of workshops in operation: 0
+rate the efficiency from 0 to 10: 0
