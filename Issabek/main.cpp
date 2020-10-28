@@ -281,26 +281,21 @@ int EditPipe(const Pipes& p1)
             {cout << "Enter the ID of the pipe you want to edit. ";
             int enter_id;
             RightValue(enter_id);
-            if (p1.id == enter_id)
+            do
             {
-                cout << "Which parameter do you want to edit?\n";
-                int PipeEdit = 0;
-                do
-                {
-                    cout << "1. The length" << endl
-                        << "2. The diameter" << endl
-                        << "3. The repairing status" << endl
-                        << "0. Save All" << endl;
-                    cin >> PipeEdit;
-                } while (PipeEdit < 0 || PipeEdit>3);
-                EditPipe(p1); SavePipes(p1);
-            }
-            else
+                cout << "Enter the right ID!";
+            } while (p1.id != enter_id);
+            cout << "Which parameter do you want to edit?\n";
+            int PipeEdit = 0;
+            do
             {
-                cout << "Not the real ID!";
-            }
-
-            break;
+                cout << "1. The length" << endl
+                    << "2. The diameter" << endl
+                    << "3. The repairing status" << endl
+                    << "0. Save All" << endl;
+                cin >> PipeEdit;
+            } while (PipeEdit < 0 || PipeEdit>3);
+            EditPipe(p1); SavePipes(p1);break;
             }
             case 5:
             {//EditKC();
