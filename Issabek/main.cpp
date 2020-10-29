@@ -14,7 +14,7 @@ struct Pipes
  
 struct KC
 {
-    string identificator;
+    int id = 0;
     string name;
     int kol_cekhov=0;
     int  kol_cekhov_v_rabote=0;
@@ -124,101 +124,86 @@ void PrintPipes(const Pipes& p1)
 }
 
 
-
-    KC InputKC()
-{
-        KC k1; 
+KC InputKC()
+{    KC k1;
     cout << "\t*Compressor station*\n";
+    k1.id = rand() % 100 + 1;
+    cout << "the ID of the new pipe: " << k1.id << endl;
     cout << "enter the name: ";
     cin >> k1.name;
-   
     int kol_cekhov = 0; int kol_cekhov_v_rabote = 1;
-    do 
-    {
-     cout << "enter the number of workshops. ";
+    cout << "enter the number of workshops. ";
+    RightValue(k1.kol_cekhov);
+    cout << "enter the number of workshops in operation. ";
+    RightValue(k1.kol_cekhov_v_rabote);
+    cout << "rate the efficiency from 0 to 10. ";
         do
         {
             cin.clear();
             cin.ignore(1000, '\n');
-            cout << "only the number can be entered: ";
-            cin >> k1.kol_cekhov;
-        } while (cin.fail() || isNumber(k1.kol_cekhov));
-        cout << "enter the number of workshops in operation. ";
-        do
-        {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "only the number can be entered: ";
-            cin >> k1.kol_cekhov_v_rabote;
-        } while (cin.fail() || isNumber(k1.kol_cekhov_v_rabote));
-     
-    } while (k1.kol_cekhov_v_rabote > k1.kol_cekhov);
-    
-    cout << "rate the efficiency from 0 to 10. "; 
-    do 
-    {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << "only numbers 1-10 can be entered: ";
-        cin >> k1.efficiency;
-    } while (k1.efficiency > 10 || k1.efficiency < 0);
-    cout <<endl<< "Do not forget to save the new created station! Choose 3 in the menu\n";
-    return k1;
-}
-    KC LoadKC()
+            cout << "only numbers 1-10 can be entered: ";
+            cin >> k1.efficiency;
+        } while (k1.efficiency > 10 || k1.efficiency < 0);
+        cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
+        return k1;
+    }
+
+KC LoadKC()
     {
         KC k1;
         ifstream fin;
         fin.open("KC.txt", ios::in);
         if (fin.is_open())
         {
+            fin >> k1.id;
             fin >> k1.name;
             fin >> k1.kol_cekhov;
             fin >> k1.kol_cekhov_v_rabote;
             fin >> k1.efficiency;
             fin.close();
         }
+        else
+        {
+            cout << "the file was not found" << endl;
+        }
         return k1;
     }
    
-    void SaveKC(const KC& k1)
+void SaveKC(const KC& k1)
     {
         ofstream fout;
         fout.open("KC.txt", 'w');
-        fout << "\t*Compressor Station*\n";
-        fout << "enter the name: " << k1.name << endl;
-        fout << "enter the number of workshops: " << k1.kol_cekhov << endl;
-        fout << "enter the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
-        while (k1.kol_cekhov_v_rabote > k1.kol_cekhov)
+        if (fout.is_open())
         {
-            fout << "the number of workshops in operation cannot exceed the number of workshops in general. please enter again:\n";
-            fout << "enter the number of workshops: " << k1.kol_cekhov << endl;
-            fout << "enter the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
+            fout << k1.id << endl; 
+            fout << k1.name << endl;
+            fout << k1.kol_cekhov << endl;
+            fout << k1.kol_cekhov_v_rabote << endl;
+            fout << k1.efficiency << endl;
+            fout.close();
         }
-        fout << "rate the efficiency from 0 to 10: " << k1.efficiency << endl;
-        
+         else
+        {
+        cout << "the file was not found" << endl;
+        }
     }
-    void PrintKC(const KC & k1)
-    {
-        cout << "\t*Compressor Station*\n";
-        cout << "enter the name: " << k1.name << endl;
-        cout << "enter the number of workshops: " << k1.kol_cekhov << endl;
-        cout << "enter the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
-        while (k1.kol_cekhov_v_rabote > k1.kol_cekhov)
-        {
-            cout << "the number of workshops in operation cannot exceed the number of workshops in general. please enter again:\n";
-            cout << "enter the number of workshops: " << k1.kol_cekhov << endl;
-            cout << "enter the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
-        }
-        cout << "rate the efficiency from 0 to 10: " << k1.efficiency << endl;
 
-    }
+void PrintKC(const KC & k1)
+{
+        cout << "\t*Compressor Station*\n";
+        cout << "the ID of the CS: " << k1.id << endl;
+        cout << "the name: " << k1.name << endl;
+        cout << "the number of workshops: " << k1.kol_cekhov << endl;
+        cout << "the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
+        cout << "the efficiency: " << k1.efficiency << endl;
+
+}
 
     
-    void PrintMenu()
+void PrintMenu()
     {
-        cout << "\n1. Add a new pipe" << endl
-            << "2. Add the CS" << endl
+        cout << "\n1. Add Pipe" << endl
+            << "2. Add CS" << endl
             << "3. Save All" << endl
             << "4. Edit the pipe" << endl
             << "5. Edit the CS" << endl
@@ -228,20 +213,18 @@ void PrintPipes(const Pipes& p1)
             << "0. Exit" << endl<<endl;
 
     }
-    int main()
+
+int main()
     {
         Pipes p1;
         KC k1;
         while (1)
         {
-            PrintMenu();
-            int i=9;
-            do
-            {
-                cin.clear();
-                cin.ignore(1000, '\n');
-                cin >> i;
-            } while (i > 8 || i < 0);
+            
+            cout << "\nChoose from the menu " << endl;
+            PrintMenu(); 
+            int i = 9;
+            cin >> i;
             switch (i)
             {
             case 1:
