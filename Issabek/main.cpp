@@ -7,8 +7,8 @@ using namespace std;
 struct Pipes
 {
     int id=0;  
-    int length=0;
-    int diameter=0;
+    double  length = 0.0;
+    double diameter = 0.0;
     bool UnderRepair=false;
 };
  
@@ -23,13 +23,13 @@ struct KC
 
 bool isNumber(char Symbol)//https://pyatnitsev.ru/2011/11/21/isnumber/
 {
-    if (Symbol >= '0' && Symbol <= '9')
+    if (Symbol >= '0' && Symbol <= '9' )
         return true;
     else
         return false;
 }
 
-int RightValue (int &value)
+int RightValue (double &value)
 {
 do
 {
@@ -39,6 +39,18 @@ do
     cin >> value;
 } while (cin.fail() || isNumber(value));
 return value;
+}
+
+int RightValue(int& value)
+{
+    do
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Only the numbers can be entered: ";
+        cin >> value;
+    } while (cin.fail() || isNumber(value));
+    return value;
 }
 
 Pipes InputPipes()
@@ -225,20 +237,20 @@ void PrintKC(const KC & k1)
 
 }
 
-    
-
-
 int main()
     {
         Pipes p1;
         KC k1;
         while (1)
         {
-            
             cout << "\nChoose from the menu " << endl;
             PrintMenu(); 
-            int i = 9;
-            cin >> i;
+            int i = 0;
+            do
+            {
+                cout << "only numbers 0-8 can be entered\n";
+                cin >> i;
+            } while (i > 8 || i < 0);
             switch (i)
             {
             case 1:
