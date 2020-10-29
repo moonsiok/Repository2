@@ -124,6 +124,7 @@ void PrintPipes(const Pipes& p1)
 }
 
 
+
 KC InputKC()
 {    KC k1;
     cout << "\t*Compressor station*\n";
@@ -131,7 +132,6 @@ KC InputKC()
     cout << "the ID of the new pipe: " << k1.id << endl;
     cout << "enter the name: ";
     cin >> k1.name;
-    int kol_cekhov = 0; int kol_cekhov_v_rabote = 1;
     cout << "enter the number of workshops. ";
     RightValue(k1.kol_cekhov);
     cout << "enter the number of workshops in operation. ";
@@ -188,6 +188,32 @@ void SaveKC(const KC& k1)
         }
     }
 
+void PrintMenu()
+    {
+        cout << "\n1. Add Pipe" << endl
+            << "2. Add CS" << endl
+            << "3. Save All" << endl
+            << "4. Edit the pipe" << endl
+            << "5. Edit the CS" << endl
+            << "6. View the pipe" << endl
+            << "7. View the CS" << endl
+            << "8. View All" << endl
+            << "0. Exit" << endl<<endl;
+    }
+
+void EditKC(KC& k1)
+{
+    cout << "do you want to change the number of workshops in operation?(y/n)\n";
+    char i;
+    cin >> i;
+    if (i =='y')
+    {
+        cout << "enter the number of workshops in operation. "; RightValue(k1.kol_cekhov_v_rabote);
+    }
+    else
+    PrintMenu(); 
+}
+
 void PrintKC(const KC & k1)
 {
         cout << "\t*Compressor Station*\n";
@@ -200,19 +226,7 @@ void PrintKC(const KC & k1)
 }
 
     
-void PrintMenu()
-    {
-        cout << "\n1. Add Pipe" << endl
-            << "2. Add CS" << endl
-            << "3. Save All" << endl
-            << "4. Edit the pipe" << endl
-            << "5. Edit the CS" << endl
-            << "6. View the pipe" << endl
-            << "7. View the CS" << endl
-            << "8. View All" << endl
-            << "0. Exit" << endl<<endl;
 
-    }
 
 int main()
     {
@@ -242,12 +256,12 @@ int main()
             break;
             }
             case 4:
-            {//PrintPipes(LoadPipes());
+            {
             EditPipes(p1); 
             break;
             }
             case 5:
-            {//EditKC();
+            {EditKC(k1);
             break;
             }
             case 6:
