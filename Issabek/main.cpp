@@ -269,11 +269,18 @@ void PrintPipes(const Pipes& p1)
             }
             case 6:
             {PrintPipes(LoadPipes());
-            PrintKC(LoadKC());
-               
+            
             break;
             }
-           
+            case 7:
+            {PrintKC(LoadKC());
+            break;
+            }
+            case 8:
+            {PrintPipes(LoadPipes());
+            PrintKC(LoadKC());
+            break;
+            }
             case 0:
             {return 0;
             break;
