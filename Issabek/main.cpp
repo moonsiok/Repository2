@@ -135,16 +135,23 @@ void PrintPipes(const Pipes& p1)
    
 }
 
+void name(string& name)
+{
+    do {
+        cout << "enter the name: ";
+        cin.ignore(22222, '\n');
+        getline(cin, name);
+        cout << name << endl;
+    } while (cin.fail());
+}
+
 KC InputKC()
 {
     KC k1;
     cout << "\t*Compressor station*\n";
     k1.id = rand() % 100 + 1;
     cout << "the ID of the new pipe: " << k1.id << endl;
-    cout << "enter the name: ";
-    cin.ignore(22222, '\n');
-    getline(cin,k1.name);
-    cout << k1.name << endl;
+    name(k1.name);
     cout << "enter the number of workshops. ";
     RightValue(k1.kol_cekhov);
     cout << "enter the number of workshops in operation. ";
