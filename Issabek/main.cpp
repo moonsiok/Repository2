@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <conio.h>
-
+ 
 using namespace std;
 struct Pipes
 {
@@ -21,35 +21,29 @@ struct KC
     int efficiency=0;
 };
 
-bool isNumber(char Symbol)//https://pyatnitsev.ru/2011/11/21/isnumber/
+double GetDouble()
 {
-    if (Symbol >= '0' && Symbol <= '9' )
-        return true;
-    else
-        return false;
-}
-
-int RightValue (double &value)
-{
-do
-{
-    cin.clear();
-    cin.ignore(1000, '\n');
-    cout << "Only numbers can be entered: ";
+    double value;
     cin >> value;
-} while (cin.fail() || isNumber(value));
-return value;
-}
-
-int RightValue(int& value)
-{
-    do
+   while (cin.fail())
     {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Only numbers can be entered: ";
         cin >> value;
-    } while (cin.fail() || isNumber(value));
+    } 
+   return value;
+}
+
+int GetInt(int value, int min, int max)
+{
+    while (cin.fail() || value > max || value < min)
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Only numbers from " << min << " to " << max << " can be entered: ";
+        cin >> value;
+    }
     return value;
 }
 
@@ -58,24 +52,49 @@ Pipes InputPipes()
     cout << "\t*Pipes*\n";
     p1.id = rand() % 100 + 1;//https://www.cplusplus.com/reference/cstdlib/rand/
     cout << "the ID of the new pipe: " << p1.id << endl;
-    cout << "enter the length(in mm)\n";
-    RightValue(p1.length);
-    cout << "enter the diameter(in mm)\n";
-    RightValue(p1.diameter);
-    if (false==p1.UnderRepair)
-            cout << "the pipe works\n" << endl;
-    else
-            cout << "the pipe is under repair\n" << endl;
-
-        cout << "Do not forget to save the new created pipe! Choose 3 in the menu\n"; 
-
+    cout << "enter the length(in mm): ";
+    p1.length = GetDouble();
+    cout << "enter the diameter(in mm): ";
+    p1.diameter = GetDouble();
+    (p1.UnderRepair) ? cout <<"the pipe is under repair\n" : cout << "the pipe works\n";
     return p1;
  }
+
+void SavePipes(const Pipes& p1)
+{   ofstream fout;
+    fout.open("PipesAndCS.txt", ios::out);
+   // fout.open("PipesAndCS.txt", 'a');
+    if (fout.is_open())
+    {
+        fout << p1.id << endl;
+        fout << p1.length << endl;
+        fout << p1.diameter << endl;
+        fout << p1.UnderRepair << endl;
+        fout.close();  
+    }
+    else
+    {
+        cout << "the file was not found" << endl;
+    }
+}
+
+void PrintPipes(const Pipes& p1)
+{
+
+    cout << "\t*Pipes*\n";
+    cout << "the ID of the pipe: " << p1.id << endl;
+    cout << "the length: " << p1.length << endl;
+
+    cout << "the diameter: " << p1.diameter << endl;
+    (p1.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n"; //tern operator
+    
+   
+}
 
 Pipes LoadPipes()
 {   Pipes p1;
     ifstream fin;
-    fin.open("pipes.txt", ios::in);
+    fin.open("PipesAndCS.txt", ios::in);
     if (fin.is_open())
     {
         fin >> p1.id;
@@ -91,48 +110,10 @@ Pipes LoadPipes()
     return p1;
 }
 
-void SavePipes(const Pipes& p1)
-{   ofstream fout;
-    fout.open("pipes.txt", ios::out);
-    if (fout.is_open())
-    {
-        fout << p1.id << endl;
-        fout << p1.length << endl;
-        fout << p1.diameter << endl;
-        fout << p1.UnderRepair << endl;
-        fout.close();  
-    }
-    else
-    {
-        cout << "the file was not found" << endl;
-    }
-}
-
 void EditPipes(Pipes& p1)
 {
-    if (p1.UnderRepair == 1) {
-        p1.UnderRepair = 0;
-        cout << "the pipe works now\n";
-    }
-    else {
-        p1.UnderRepair = 1;
-        cout << "the pipe is under repair now\n";
-    }
-}
-
-void PrintPipes(const Pipes& p1)
-{
-
-    cout << "\t*Pipes*\n";
-    cout << "the ID of the pipe: " << p1.id << endl;
-    cout << "the length: " << p1.length << endl;
-
-    cout << "the diameter: " << p1.diameter << endl;
-    if (false == p1.UnderRepair)
-        cout << "the pipe works\n" << endl;
-    else
-        cout << "the pipe is under repair\n" << endl;
-   
+    p1.UnderRepair = !p1.UnderRepair;
+    cout << "the pipe's status is changed but not saved";
 }
 
 KC InputKC()
@@ -141,49 +122,29 @@ KC InputKC()
     cout << "\t*Compressor station*\n";
     k1.id = rand() % 100 + 1;
     cout << "the ID of the new pipe: " << k1.id << endl;
-    cout << "enter the name: ";
-    cin  >> k1.name;
-    cout << "enter the number of workshops. ";
-    RightValue(k1.kol_cekhov);
-    cout << "enter the number of workshops in operation. ";
-    RightValue(k1.kol_cekhov_v_rabote);
-    cout << "rate the efficiency from 0 to 10. ";
-        do
-        {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "only numbers 1-10 can be entered: ";
-            cin >> k1.efficiency;
-        } while (k1.efficiency > 10 || k1.efficiency < 0);
-        cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
-        return k1;
-    }
+    cout << "enter the name: "; 
+    cin.ignore(1000, '\n');
+    getline(cin, k1.name); //https://cboard.cprogramming.com/cplusplus-programming/92353-cplusplus-strings-spaces.html
+    cout << "enter the number of workshops: "; 
+    cin >> k1.kol_cekhov;
+    GetInt(k1.kol_cekhov, 0, 1000);
+    cout << "enter the number of workshops in operation: "; 
+    cin >> k1.kol_cekhov_v_rabote;
+    int VseKolichestvo = k1.kol_cekhov;
+    GetInt(k1.kol_cekhov_v_rabote, 0, VseKolichestvo);
+    cout << "rate the efficiency from 0 to 10: "; 
+    cin >> k1.efficiency;
+    GetInt(k1.efficiency, 0, 10);
+    cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
+    return k1;
+ }
 
-KC LoadKC()
-    {
-        KC k1;
-        ifstream fin;
-        fin.open("KC.txt", ios::in);
-        if (fin.is_open())
-        {
-            fin >> k1.id;
-            fin >> k1.name;
-            fin >> k1.kol_cekhov;
-            fin >> k1.kol_cekhov_v_rabote;
-            fin >> k1.efficiency;
-            fin.close();
-        }
-        else
-        {
-            cout << "the file was not found" << endl;
-        }
-        return k1;
-    }
-   
 void SaveKC(const KC& k1)
     {
         ofstream fout;
-        fout.open("KC.txt", 'w');
+        
+       ofstream file("PipesAndCS.txt", ios::app);
+      //  fout.open("PipesAndCS.txt", 'a');
         if (fout.is_open())
         {
             fout << k1.id << endl; 
@@ -199,32 +160,6 @@ void SaveKC(const KC& k1)
         }
     }
 
-void PrintMenu()
-    {
-        cout << "\n1. Add Pipe" << endl
-            << "2. Add CS" << endl
-            << "3. Save All" << endl
-            << "4. Edit the pipe" << endl
-            << "5. Edit the CS" << endl
-            << "6. View the pipe" << endl
-            << "7. View the CS" << endl
-            << "8. View All" << endl
-            << "0. Exit" << endl<<endl;
-    }
-
-void EditKC(KC& k1)
-{
-    cout << "do you want to change the number of workshops in operation?(y/n)\n";
-    char i;
-    cin >> i;
-    if (i =='y')
-    {
-        cout << "enter the number of workshops in operation. "; RightValue(k1.kol_cekhov_v_rabote);
-    }
-    else
-    PrintMenu(); 
-}
-
 void PrintKC(const KC & k1)
 {
         cout << "\t*Compressor Station*\n";
@@ -236,20 +171,79 @@ void PrintKC(const KC & k1)
 
 }
 
+KC LoadKC()
+    {
+        KC k1;
+        ifstream fin;
+        fin.open("PipesAndCS.txt", ios::in);
+        if (fin.is_open())
+        {
+            fin >> k1.id;
+            fin.ignore(2222, '\n');
+            getline(fin, k1.name);
+            fin >> k1.kol_cekhov;
+            fin >> k1.kol_cekhov_v_rabote;
+            fin >> k1.efficiency;
+            fin.close();
+        }
+        else
+        {
+            cout << "the file was not found" << endl;
+        }
+        return k1;
+    }
+
+void PrintMenu()
+    {
+        cout << "\n1. Add Pipe" << endl
+            << "2. Add CS" << endl
+            << "3. Save All" << endl
+            << "4. Edit the pipe" << endl
+            << "5. Edit the CS" << endl
+            << "6. Load the pipe" << endl
+            << "7. Load the CS" << endl
+            << "8. View All" << endl
+            << "0. Exit" << endl<<endl;
+    }
+
+void EditKC(KC& k1)
+{
+        cout << "do you want to change the number of workshops in operation?(y/n)\n";
+        char i; 
+        cin >> i;
+        while (i != 'y' && i != 'n')
+        {
+            cout << "yes or no? enter *y* or *n* respectively: "; 
+            cin >> i;
+        }
+        switch (i)
+        {
+        case 'y':
+        {
+            cout << "enter the number of workshops in operation: "; 
+            cin >> k1.kol_cekhov_v_rabote;
+            int VseKolichestvo = k1.kol_cekhov;
+            GetInt(k1.kol_cekhov_v_rabote, 0, VseKolichestvo);
+            cout<< "the information is changed but not saved\n";
+            break;
+        }
+        case 'n':
+        {
+            break;
+        }
+        }
+}
+  
 int main()
     {
         Pipes p1;
         KC k1;
         while (1)
-        {
+        {   int i=0;
             cout << "\nChoose from the menu " << endl;
-            PrintMenu(); 
-            int i = 0;
-            do
-            {
-                cout << "only numbers 0-8 can be entered\n";
-                cin >> i;
-            } while (i > 8 || i < 0);
+            PrintMenu();  
+            cin >> i;
+            GetInt(i, 0, 8);
             switch (i)
             {
             case 1:
@@ -261,8 +255,8 @@ int main()
             break;
             }
             case 3:
-            { SavePipes(p1);
-            SaveKC(k1);
+            {SaveKC(k1);SavePipes(p1);
+            
             cout << "Information was successfully saved" << endl;
             break;
             }
@@ -295,8 +289,6 @@ int main()
             }
             return 0;
             }
-           
-           
         }
         
         return 0;
