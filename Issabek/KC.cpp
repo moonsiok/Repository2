@@ -33,19 +33,19 @@ using namespace std;
 //}
 
 
-std::string KC::GetName() const
-{
-    return std::string();
-}
+//std::string KC::GetName() const
+//{
+//    return std::string();
+//}
+//
+//
+//
+//void KC::SetName(std::string new_name)
+//{
+//    name = new_name;
+//}
 
-
-
-void KC::SetName(std::string new_name)
-{
-    name = new_name;
-}
-
-void KC::Redakt()
+void KC::RedaktKC()
 {
     cout << "do you want to change the number of workshops in operation?(y/n)\n";
     char i;
@@ -102,3 +102,4 @@ istream& operator >>(istream& in, KC& k1)
     cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
     return in;
 }
+

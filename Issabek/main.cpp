@@ -3,15 +3,16 @@
 #include <fstream>
 #include <vector>
 #include "KC.h"
+#include "Pipes.h"
 using namespace std;
- 
-struct Pipes
-{
-    int id = 0;
-    double  length = 0.0;
-    double diameter = 0.0;
-    bool UnderRepair = false;
-};
+// 
+//struct Pipes
+//{
+//    int id = 0;
+//    double  length = 0.0;
+//    double diameter = 0.0;
+//    bool UnderRepair = false;
+//};
  
 //struct KC
 //{
@@ -54,29 +55,7 @@ Pipes& SelectPipes(vector <Pipes>& g)
     return g[index - 1];
 }
 
-ostream& operator <<(ostream& out, const Pipes& p1)
-{
-    out << "\t*Pipes*\n";
-    out << "the ID of the pipe: " << p1.id << endl;
-    out << "the length: " << p1.length << endl;
 
-    out << "the diameter: " << p1.diameter << endl;
-    (p1.UnderRepair) ? out << "the pipe is under repair\n" : out << "the pipe works\n"; //tern operator
-    return out;
-}
-
-istream& operator>>(istream& in, Pipes& p1)
-{
-    cout << "\t*Pipes*\n";
-    p1.id = rand() % 100 + 1;//https://www.cplusplus.com/reference/cstdlib/rand/
-    cout << "the ID of the new pipe: " << p1.id << endl;
-    cout << "enter the length(in m): ";
-    p1.length = GetCorrectNumber(1.0, 1000.0);
-    cout << "enter the diameter(in mm): ";
-    p1.diameter = GetCorrectNumber(1.0, 1000.0);
-    (p1.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n";
-    return in;
-}
 
 void SavePipes( ofstream& fout,const Pipes& p1)
 {   
@@ -101,8 +80,9 @@ Pipes LoadPipes(ifstream &fin)
 
 void EditPipes(Pipes& p1)
 {
-    p1.UnderRepair = !p1.UnderRepair;
-    cout << "the pipe's status is changed but not saved";
+    p1.RedaktPipes();
+   /* p1.UnderRepair = !p1.UnderRepair;
+    cout << "the pipe's status is changed but not saved";*/
 }
 
 
@@ -144,7 +124,7 @@ void PrintMenu()
 
 void EditKC(KC& k1)
 {
-    k1.Redakt();
+    k1.RedaktKC();
 
         /*cout << "do you want to change the number of workshops in operation?(y/n)\n";
         char i; 
@@ -199,7 +179,7 @@ int main()
             }
             case 3:
             {
-                ofstream fout;
+               /* ofstream fout;
                 fout.open("PipesAndCS.txt", ios::out);
                 if (fout.is_open())
                 {
@@ -210,15 +190,15 @@ int main()
                 }
 
             cout << "Information was successfully saved" << endl;
-            break;
+            break;*/
             }
             case 4:
             {
-            //EditPipes(p1); 
+            EditPipes(); 
             break;
             }
             case 5:
-            {//EditKC(k1);
+            {EditKC();
             break;
             }
             case 6:

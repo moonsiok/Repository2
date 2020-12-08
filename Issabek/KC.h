@@ -16,9 +16,9 @@ class KC
         //KC(KC&& k);//peremewenie
         //~KC();
  public:
-        std::string GetName()  const;
-        void SetName(std::string);
-        void Redakt();
+        /*std::string GetName()  const;
+        void SetName(std::string);*/
+        void RedaktKC();
         friend std::ostream& operator<<(std::ostream& out, const KC& k1);
         friend std::istream& operator >>(std::istream& in, KC& k1);
 };
