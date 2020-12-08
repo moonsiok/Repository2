@@ -16,6 +16,7 @@ public:
     void RedaktPipes();
 
     void SavePipes();
+    void LoadPipes();
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
     friend std::istream& operator >>(std::istream& in, Pipes& p1);
 };

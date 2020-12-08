@@ -1,5 +1,5 @@
 #include "Pipes.h"
-#include "Utility.h"
+#include "Utils.h"
 using namespace std;
 vector <Pipes> group;
 ostream& operator <<(ostream& out, const Pipes& p1)
@@ -51,5 +51,26 @@ void Pipes::SavePipes()
         fout << length << endl;
         fout << diameter << endl;
         fout << UnderRepair << endl; fout.close();
+    }
+}
+
+void Pipes::LoadPipes()
+{
+    ifstream fin;
+    fin.open("PipesAndCS.txt", ios::in);
+    if (fin.is_open())
+    {
+        int count;
+        fin >> count;
+        group.reserve(count);
+        while (count--)
+        {
+            fin >> id;
+            fin >> length;
+            fin >> diameter;
+            fin >> UnderRepair;
+        }
+
+        fin.close();
     }
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <vector>
 class KC
 {
     int id ;
@@ -19,6 +21,8 @@ class KC
         /*std::string GetName()  const;
         void SetName(std::string);*/
         void RedaktKC();
+        void SohrKC();
+        void ZagruzKC();
         friend std::ostream& operator<<(std::ostream& out, const KC& k1);
         friend std::istream& operator >>(std::istream& in, KC& k1);
 };

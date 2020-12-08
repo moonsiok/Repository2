@@ -61,7 +61,7 @@ Pipes& SelectPipes(vector <Pipes>& g)
 
 void SavePipes(Pipes& p1)
 {   
-    p1.SavePipes()
+    p1.SavePipes();
     /*string path = "PipesAndKC.txt";
     ofstream fout;
     fout.open(path, ofstream::app);
@@ -81,15 +81,16 @@ void SavePipes(Pipes& p1)
       
 }
 
-Pipes LoadPipes(ifstream &fin)
+Pipes LoadPipes(Pipes &p1)
 {   
-    Pipes p1;
-   
-        fin >> p1.id;
+
+    //Pipes p1;
+    p1.LoadPipes();
+        /*fin >> p1.id;
         fin >> p1.length;
         fin >> p1.diameter;                   
         fin >> p1.UnderRepair;
-        
+        */
     return p1;
 }
 
@@ -107,25 +108,25 @@ KC& SelectKC(vector <KC>& g1)
     return g1[index - 1];
 }
 
-void SaveKC(ofstream& fout, const KC& k1)
+void SaveKC(KC &k1)
 {
-   
-    fout << k1.id << endl;
+    k1.SohrKC();
+ /*   fout << k1.id << endl;
     fout << k1.name << endl;
     fout << k1.kol_cekhov << endl;
     fout << k1.kol_cekhov_v_rabote << endl;
-    fout << k1.efficiency << endl;
+    fout << k1.efficiency << endl;*/
 }
-KC LoadKC(ifstream& fin)
+KC LoadKC(KC& k1)
     {
-        KC k1;
+    k1.ZagruzKC();
        
-                    fin >> k1.id;
+                   /* fin >> k1.id;
                     fin.ignore(2222, '\n');
                     getline(fin, k1.name);
                     fin >> k1.kol_cekhov;
                     fin >> k1.kol_cekhov_v_rabote;
-                    fin >> k1.efficiency;
+                    fin >> k1.efficiency;*/
         return k1;
     }
 
@@ -225,6 +226,7 @@ int main()
                     fout << p1.UnderRepair << endl; fout.close();
                 }*/
                 SavePipes(SelectPipes(group));
+                SaveKC(SelectKC(group1));
                 break;
             }
             case 4:
@@ -236,7 +238,7 @@ int main()
             break;
             }
             case 6:
-            { ifstream fin;
+            { /*ifstream fin;
             fin.open("PipesAndCS.txt", ios::in);
             if (fin.is_open())
             {
@@ -249,12 +251,12 @@ int main()
                 }
   
                 fin.close();
-            }
-               
+            }*/
+                LoadPipes(SelectPipes(group));
             break;
             }
             case 7:
-            {   ifstream fin;
+            {  /* ifstream fin;
                 fin.open("PipesAndCS.txt", ios::in);
                 if (fin.is_open())
                 {
@@ -266,7 +268,8 @@ int main()
                         group1.push_back(LoadKC(fin));
                     }
                     fin.close();
-                }
+                }*/
+                LoadKC(SelectKC(group1));
             break;
             }
             case 8:
