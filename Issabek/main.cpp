@@ -2,24 +2,25 @@
 #include <string>
 #include <fstream>
 #include <vector>
-
+#include "KC.h"
 using namespace std;
+ 
 struct Pipes
 {
-    int id=0;  
+    int id = 0;
     double  length = 0.0;
     double diameter = 0.0;
-    bool UnderRepair=false;
+    bool UnderRepair = false;
 };
  
-struct KC
-{
-    int id = 0;
-    string name;
-    int kol_cekhov=0;
-    int  kol_cekhov_v_rabote=0;
-    int efficiency=0;
-};
+//struct KC
+//{
+//    int id = 0;
+//    string name;
+//    int kol_cekhov=0;
+//    int  kol_cekhov_v_rabote=0;
+//    int efficiency=0;
+//};
 
 template <typename T>
 T GetCorrectNumber( T min, T max)
@@ -104,35 +105,7 @@ void EditPipes(Pipes& p1)
     cout << "the pipe's status is changed but not saved";
 }
 
-ostream& operator<<(ostream& out, KC& k1)
-{
-    out << "\t*Compressor Station*\n";
-    out << "the ID of the CS: " << k1.id << endl;
-    out << "the name: " << k1.name << endl;
-    out << "the number of workshops: " << k1.kol_cekhov << endl;
-    out << "the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
-    out << "the efficiency: " << k1.efficiency << endl;
-    return out;
-}
 
-istream& operator >>(istream& in, KC& k1)
-{
-    cout << "\t*Compressor station*\n";
-    k1.id = rand() % 100 + 1;
-    cout << "the ID of the new pipe: " << k1.id << endl;
-    cout << "enter the name: ";
-    in.ignore(1000, '\n');
-    getline(in, k1.name); //https://cboard.cprogramming.com/cplusplus-programming/92353-cplusplus-strings-spaces.html
-    cout << "enter the number of workshops: ";
-    k1.kol_cekhov=GetCorrectNumber(0, 1000);
-    cout << "enter the number of workshops in operation: ";
-    int VseKolichestvo = k1.kol_cekhov;
-    k1.kol_cekhov_v_rabote=GetCorrectNumber(0, VseKolichestvo);
-    cout << "rate the efficiency from 0 to 10: ";
-    k1.efficiency=GetCorrectNumber(0, 10);
-    cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
-    return in;
-}
 
 void SaveKC(ofstream& fout, const KC& k1)
 {
@@ -171,7 +144,9 @@ void PrintMenu()
 
 void EditKC(KC& k1)
 {
-        cout << "do you want to change the number of workshops in operation?(y/n)\n";
+    k1.Redakt();
+
+        /*cout << "do you want to change the number of workshops in operation?(y/n)\n";
         char i; 
         cin >> i;
         while (i != 'y' && i != 'n')
@@ -193,7 +168,7 @@ void EditKC(KC& k1)
         {
             break;
         }
-        }
+        }*/
 }
 
   
@@ -253,8 +228,12 @@ int main()
             {
                 int count;
                 fin >> count;
-                while(count--)
+                group.reserve(count);
+                while (count--) 
+                {
                 group.push_back(LoadPipes(fin));
+                }
+  
                 fin.close();
             }
                
@@ -267,8 +246,11 @@ int main()
                 {
                     int count;
                     fin >> count;
+                    group1.reserve(count);
                     while (count--)
-                    group1.push_back(LoadKC(fin));
+                    {
+                        group1.push_back(LoadKC(fin));
+                    }
                     fin.close();
                 }
             break;
