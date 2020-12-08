@@ -1,5 +1,6 @@
 #include "KC.h"
 #include "Utility.h"
+//#include "Utils.h"
 using namespace std;
 vector <KC> group1;
 //KC::KC()
@@ -103,47 +104,47 @@ istream& operator >>(istream& in, KC& k1)
     cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
     return in;
 }
-
-void KC::SohrKC()
-{
-    string path = "PipesAndKC.txt";
-    ofstream fout;
-    fout.open(path, ofstream::app);
-    if (!fout.is_open())
-    {
-        fout << "error" << endl;
-    }
-    else
-    {
-        fout << group1.size() << endl;
-        for (KC k1 : group1)
-
-            fout << id << endl;
-        fout << name << endl;
-        fout << kol_cekhov << endl;
-        fout << kol_cekhov_v_rabote << endl;
-        fout << efficiency << endl; fout.close();
-    }
-}
-
-void KC::ZagruzKC()
-{
-    ifstream fin;
-    fin.open("PipesAndKC.txt", ios::in);
-    if (fin.is_open())
-    {
-        int count;
-        fin >> count;
-        group1.reserve(count);
-        while (count--)
-        {
-            fin >> id;
-            fin.ignore(2222, '\n');
-            getline(fin, name);
-            fin >> kol_cekhov;
-            fin >> kol_cekhov_v_rabote;
-            fin >> efficiency;
-        }
-        fin.close();
-    }
-}
+//
+//void KC::SohrKC()
+//{
+//    string path = "PipesAndKC.txt";
+//    ofstream fout;
+//    fout.open(path, ofstream::app);
+//    if (!fout.is_open())
+//    {
+//        fout << "error" << endl;
+//    }
+//    else
+//    {
+//        fout << group1.size() << endl;
+//        for (KC k1 : group1)
+//
+//            fout << id << endl;
+//        fout << name << endl;
+//        fout << kol_cekhov << endl;
+//        fout << kol_cekhov_v_rabote << endl;
+//        fout << efficiency << endl; fout.close();
+//    }
+//}
+//
+//void KC::ZagruzKC()
+//{
+//    ifstream fin;
+//    fin.open("PipesAndKC.txt", ios::in);
+//    if (fin.is_open())
+//    {
+//        int count;
+//        fin >> count;
+//        group1.reserve(count);
+//        while (count--)
+//        {
+//            fin >> id;
+//            fin.ignore(2222, '\n');
+//            getline(fin, name);
+//            fin >> kol_cekhov;
+//            fin >> kol_cekhov_v_rabote;
+//            fin >> efficiency;
+//        }
+//        fin.close();
+//    }
+//}

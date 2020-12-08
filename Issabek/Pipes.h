@@ -12,6 +12,7 @@ class Pipes
     double diameter;
     bool UnderRepair;
 
+
 public:  
     void RedaktPipes();
 
@@ -19,5 +20,7 @@ public:
     void LoadPipes();
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
     friend std::istream& operator >>(std::istream& in, Pipes& p1);
+    friend std::ofstream& operator << (std::ofstream& fout, const Pipes& p1);
+    friend std::ifstream& operator >> (std::ifstream& fin, Pipes& p1);
 };
 

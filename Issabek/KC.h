@@ -22,7 +22,7 @@ class KC
         void SetName(std::string);*/
         void RedaktKC();
         void SohrKC();
-        void ZagruzKC();
+      //  void ZagruzKC();
         friend std::ostream& operator<<(std::ostream& out, const KC& k1);
         friend std::istream& operator >>(std::istream& in, KC& k1);
 };

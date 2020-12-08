@@ -1,5 +1,6 @@
 #include "Pipes.h"
-#include "Utils.h"
+//#include "Utils.h"
+#include "Utility.h"
 using namespace std;
 vector <Pipes> group;
 ostream& operator <<(ostream& out, const Pipes& p1)
@@ -25,6 +26,18 @@ istream& operator>>(istream& in, Pipes& p1)
     p1.diameter = GetCorrectNumber(1.0, 1000.0);
     (p1.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n";
     return in;
+}
+
+std::ifstream& operator>>(std::ifstream& fin, Pipes& p1)
+{
+    fin >> p1.id >> p1.length >> p1.diameter >> p1.UnderRepair;
+    return fin;
+}
+
+std::ofstream& operator<<(std::ofstream& fout, const Pipes& p1)
+{
+    fout << p1.id << endl << p1.length << endl << p1.diameter << endl << p1.UnderRepair << endl;
+    return fout;
 }
 
 void Pipes::RedaktPipes()

@@ -4,6 +4,8 @@
 #include <vector>
 #include "KC.h"
 #include "Pipes.h"
+#include "Utility.h"
+#include "Utils.h"
 using namespace std;
 // 
 //struct Pipes
@@ -23,30 +25,30 @@ using namespace std;
 //    int efficiency=0;
 //};
 
-template <typename T>
-T GetCorrectNumber( T min, T max)
-{   
-    T value;
-    while ((cin>>value).fail() || value > max || value < min)
-    {
-        cin.clear();
-        cin.ignore(10000, '\n');
-        cout << "Only numbers from " << min << " to " << max << " can be entered: ";
-    }
-    return value;
-}
-
-unsigned int GetCorrectNumber(unsigned int min, size_t max)
-{
-    unsigned int value;
-    while ((cin >> value).fail() || value > max || value < min)
-    {
-        cin.clear();
-        cin.ignore(10000, '\n');
-        cout << "Only numbers from " << min << " to " << max << " can be entered: ";
-    }
-    return value;
-}
+//template <typename T>
+//T GetCorrectNumber( T min, T max)
+//{   
+//    T value;
+//    while ((cin>>value).fail() || value > max || value < min)
+//    {
+//        cin.clear();
+//        cin.ignore(10000, '\n');
+//        cout << "Only numbers from " << min << " to " << max << " can be entered: ";
+//    }
+//    return value;
+//}
+//
+//unsigned int GetCorrectNumber(unsigned int min, size_t max)
+//{
+//    unsigned int value;
+//    while ((cin >> value).fail() || value > max || value < min)
+//    {
+//        cin.clear();
+//        cin.ignore(10000, '\n');
+//        cout << "Only numbers from " << min << " to " << max << " can be entered: ";
+//    }
+//    return value;
+//}
 
 Pipes& SelectPipes(vector <Pipes>& g)
 {
@@ -55,14 +57,40 @@ Pipes& SelectPipes(vector <Pipes>& g)
     return g[index - 1];
 }
 
-
-
-//void SavePipes( ofstream& fout,const Pipes& p1)
-
 void SavePipes(Pipes& p1)
-{   
+{
     p1.SavePipes();
-    /*string path = "PipesAndKC.txt";
+}
+
+//
+//void SavePipes(Pipes& p1)
+//{
+//    vector <Pipes> group;
+// 
+//    string path = "PipesAndKC.txt";
+//    ofstream fout;
+//    fout.open(path, ofstream::app);
+//    if (!fout.is_open())
+//    {
+//        fout << "error" << endl;
+//    }
+//    else
+//    {
+//        fout << group.size() << endl;
+//       
+//        for (const auto& p1 : group)
+//            fout << p1;
+//        
+//        fout.close();
+//    }
+//        
+//      
+//}
+
+void SaveKC(KC& k1)
+{
+    vector <KC> group1;
+    string path = "PipesAndKC.txt";
     ofstream fout;
     fout.open(path, ofstream::app);
     if (!fout.is_open())
@@ -71,16 +99,15 @@ void SavePipes(Pipes& p1)
     }
     else
     {
-        fout << p1.id << endl;
-        fout << p1.length << endl;
-        fout << p1.diameter << endl;
-        fout << p1.UnderRepair << endl;
-
-    }*/
+                fout << group1.size() << endl;
         
-      
-}
+        for (const auto& k1 : group1)
+            fout << k1;
+        fout.close();
+    }
 
+
+}
 Pipes LoadPipes(Pipes &p1)
 {   
 
@@ -93,7 +120,29 @@ Pipes LoadPipes(Pipes &p1)
         */
     return p1;
 }
-
+//
+//Pipes LoadPipes(Pipes& p1)
+//{
+//    vector <Pipes> group;
+//        ifstream fin;
+//    fin.open("pipesandcs.txt", ios::in);
+//    if (fin.is_open())
+//    {
+//        int count;
+//        fin >> count;
+//        group.reserve(count);
+//        while (count--)
+//        {
+//            cout << group.size() << endl;
+//
+//            for (const auto& p1 : group)
+//                cout << p1;
+//        }
+//
+//        fin.close();
+//    }
+//    return p1;
+//}
 void EditPipes(Pipes& p1)
 {
     p1.RedaktPipes();
@@ -107,29 +156,61 @@ KC& SelectKC(vector <KC>& g1)
     unsigned int index = GetCorrectNumber(1u, g1.size());
     return g1[index - 1];
 }
-
-void SaveKC(KC &k1)
-{
-    k1.SohrKC();
- /*   fout << k1.id << endl;
-    fout << k1.name << endl;
-    fout << k1.kol_cekhov << endl;
-    fout << k1.kol_cekhov_v_rabote << endl;
-    fout << k1.efficiency << endl;*/
-}
+//B
+//void SaveKC(KC &k1)
+//{
+//    string path = "PipesAndKC.txt";
+//    ofstream fout;
+//    fout.open(path, ofstream::app);
+//    if (!fout.is_open())
+//    {
+//        fout << "error" << endl;
+//    }
+//    else
+//    {
+//        fout << group.size() << endl;
+//        for (Pipes p1 : group)
+//
+//            fout << id << endl;
+//        fout << length << endl;
+//        fout << diameter << endl;
+//        fout << UnderRepair << endl; fout.close();
+//    }
+//}
+//KC LoadKC(KC& k1)
+//    {
+//    k1.ZagruzKC();
+//       
+//                   /* fin >> k1.id;
+//                    fin.ignore(2222, '\n');
+//                    getline(fin, k1.name);
+//                    fin >> k1.kol_cekhov;
+    //                fin >> k1.kol_cekhov_v_rabote;
+    //                fin >> k1.efficiency;*/
+    //    return k1;
+    //}
 KC LoadKC(KC& k1)
+{
+    vector <KC> group1;
+        ifstream fin;
+    fin.open("PipesAndKC.txt", ios::in);
+    if (fin.is_open())
     {
-    k1.ZagruzKC();
-       
-                   /* fin >> k1.id;
-                    fin.ignore(2222, '\n');
-                    getline(fin, k1.name);
-                    fin >> k1.kol_cekhov;
-                    fin >> k1.kol_cekhov_v_rabote;
-                    fin >> k1.efficiency;*/
-        return k1;
-    }
+        int count;
+        fin >> count;
+        group1.reserve(count);
+        while (count--)
+        {
 
+            cout << group1.size() << endl;
+
+            for (const auto& k1 : group1)
+                cout << k1;
+        }
+        fin.close();
+    }
+    return k1;
+}
 void PrintMenu()
     {
         cout << "\n1. Add Pipe" << endl
