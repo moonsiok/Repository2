@@ -57,12 +57,27 @@ Pipes& SelectPipes(vector <Pipes>& g)
 
 
 
-void SavePipes( ofstream& fout,const Pipes& p1)
+//void SavePipes( ofstream& fout,const Pipes& p1)
+
+void SavePipes(Pipes& p1)
 {   
+    p1.SavePipes()
+    /*string path = "PipesAndKC.txt";
+    ofstream fout;
+    fout.open(path, ofstream::app);
+    if (!fout.is_open())
+    {
+        fout << "error" << endl;
+    }
+    else
+    {
         fout << p1.id << endl;
         fout << p1.length << endl;
         fout << p1.diameter << endl;
         fout << p1.UnderRepair << endl;
+
+    }*/
+        
       
 }
 
@@ -85,7 +100,12 @@ void EditPipes(Pipes& p1)
     cout << "the pipe's status is changed but not saved";*/
 }
 
-
+KC& SelectKC(vector <KC>& g1)
+{
+    cout << "enter index: ";
+    unsigned int index = GetCorrectNumber(1u, g1.size());
+    return g1[index - 1];
+}
 
 void SaveKC(ofstream& fout, const KC& k1)
 {
@@ -183,22 +203,36 @@ int main()
                 fout.open("PipesAndCS.txt", ios::out);
                 if (fout.is_open())
                 {
-                    fout << group.size() << endl;
-                    for (Pipes p1: group)
-                        SavePipes(fout, p1);
-                    fout.close();
+                    
                 }
 
             cout << "Information was successfully saved" << endl;
             break;*/
+                /*string path = "PipesAndKC.txt";
+                ofstream fout;
+                fout.open(path, ofstream::app);
+                if (!fout.is_open())
+                {
+                    fout << "error" << endl;
+                }
+                else
+                {fout << group.size() << endl;
+                    for (Pipes p1: group)
+                   
+                    fout << p1.id << endl;
+                    fout << p1.length << endl;
+                    fout << p1.diameter << endl;
+                    fout << p1.UnderRepair << endl; fout.close();
+                }*/
+                SavePipes(SelectPipes(group));
+                break;
             }
             case 4:
-            {
-            EditPipes(); 
+            { EditPipes(SelectPipes(group)); 
             break;
             }
             case 5:
-            {EditKC();
+            {EditKC(SelectKC(group1));
             break;
             }
             case 6:

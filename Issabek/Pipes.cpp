@@ -1,7 +1,7 @@
 #include "Pipes.h"
 #include "Utility.h"
 using namespace std;
-
+vector <Pipes> group;
 ostream& operator <<(ostream& out, const Pipes& p1)
 {
     out << "\t*Pipes*\n";
@@ -31,4 +31,25 @@ void Pipes::RedaktPipes()
 {
     UnderRepair = !UnderRepair;
     cout << "the pipe's status is changed but not saved";
+}
+
+void Pipes::SavePipes()
+{
+    string path = "PipesAndKC.txt";
+    ofstream fout;
+    fout.open(path, ofstream::app);
+    if (!fout.is_open())
+    {
+        fout << "error" << endl;
+    }
+    else
+    {
+        fout << group.size() << endl;
+        for (Pipes p1 : group)
+
+            fout << id << endl;
+        fout << length << endl;
+        fout << diameter << endl;
+        fout << UnderRepair << endl; fout.close();
+    }
 }
