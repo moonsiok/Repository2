@@ -8,6 +8,15 @@
 #include "Utils.h"
 using namespace std;
 
+string EnterFilename()
+{
+    string filename;
+    cout << "\nplease type a name for the file: ";
+    cin.ignore(1000, '\n');
+    getline(cin, filename);
+    return filename;
+}
+
 void SaveAll(vector <Pipes>& g, vector <KC> g1)
 {
     if ((!g.size()) and (!g1.size()))
@@ -15,7 +24,7 @@ void SaveAll(vector <Pipes>& g, vector <KC> g1)
     else
     {
         ofstream fout;
-        fout.open("PipesAndCS.txt", ios::out);
+        fout.open(EnterFilename(), ios::out);
         if (fout.is_open())
         {
             fout << g.size() << endl;
@@ -35,7 +44,7 @@ void SaveAll(vector <Pipes>& g, vector <KC> g1)
 void LoadAll(vector <Pipes>& g, vector <KC> g1)
 {
     ifstream fin;
-    fin.open("PipesAndCS.txt", ios::in);
+    fin.open(EnterFilename(), ios::in);
     if (fin.is_open())
     {
         char ch;
