@@ -2,6 +2,7 @@
 #include "Utility.h"
 //#include "Utils.h"
 using namespace std;
+int KC::MaxID = 1001;
 vector <KC> group1;
 void KC::RedaktKC()
 {
@@ -34,7 +35,7 @@ void KC::RedaktKC()
 ostream& operator<<(ostream& out, const KC& k1)
 {
     out << "\t*Compressor Station*\n";
-    out << "the ID of the CS: " << k1.id << endl;
+    out << "the ID of the CS: " << k1.idKC << endl;
     out << "the name: " << k1.name << endl;
     out << "the number of workshops: " << k1.kol_cekhov << endl;
     out << "the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
@@ -45,8 +46,7 @@ ostream& operator<<(ostream& out, const KC& k1)
 istream& operator >>(istream& in, KC& k1)
 {
     cout << "\t*Compressor station*\n";
-    k1.id = rand() % 100 + 1;
-    cout << "the ID of the new pipe: " << k1.id << endl;
+    cout << "the ID of the new pipe: " << k1.idKC << endl;
     cout << "enter the name: ";
     in.ignore(1000, '\n');
     getline(in, k1.name); //https://cboard.cprogramming.com/cplusplus-programming/92353-cplusplus-strings-spaces.html
@@ -63,13 +63,22 @@ istream& operator >>(istream& in, KC& k1)
 
 std::ifstream& operator>>(std::ifstream& fin, KC& k1)
 {
-    fin >> k1.id >> k1.name >> k1.kol_cekhov >> k1.kol_cekhov_v_rabote >> k1.efficiency;
+    fin >> k1.idKC >> k1.name >> k1.kol_cekhov >> k1.kol_cekhov_v_rabote >> k1.efficiency;
     return fin;
 }
 
 std::ofstream& operator<<(std::ofstream& fout, const KC& k1)
 {
-    fout << k1.id <<endl<< k1.name <<endl<< k1.kol_cekhov <<endl<< k1.kol_cekhov_v_rabote <<endl<< k1.efficiency << endl;
+    fout << k1.idKC <<endl<< k1.name <<endl<< k1.kol_cekhov <<endl<< k1.kol_cekhov_v_rabote <<endl<< k1.efficiency << endl;
     return fout;
 }
 
+//int ID = 1001;
+KC::KC()
+{
+    idKC = MaxID++;
+    name = " ";
+    kol_cekhov = 0;
+    kol_cekhov_v_rabote=0;
+    efficiency = 0;
+}

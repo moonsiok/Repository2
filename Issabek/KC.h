@@ -5,19 +5,23 @@
 #include <vector>
 class KC
 {
-    int id ;
+private:
+    int idKC; 
+    static int MaxID;
+public:
     std::string name;
     int kol_cekhov;
     int  kol_cekhov_v_rabote;
     int efficiency;
     
    
-        //KC();
+        KC();
         //KC(std::string name);
         //KC(const KC& k);//kopirovanie
         //KC(KC&& k);//peremewenie
         //~KC();
- public:
+
+
         /*std::string GetName()  const;
         void SetName(std::string);*/
         void RedaktKC();

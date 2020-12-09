@@ -1,19 +1,27 @@
 #pragma once
-#include <string>
+//#include <string>
 #include <iostream>
 #include <fstream>
 #include <vector>
 
 class Pipes
 {
- 
-    int id ;
+private:
+    int idPipes;
+    static int PMaxID;
+public:  
+    
+    std::string name;
     double  length;
     double diameter;
-    bool UnderRepair=false;
+    bool UnderRepair;
 
+    Pipes();
+        
+    //Pipes(const Pipes& p1);//kopirovanie
+    //Pipes(Pipes&& p1);//peremewenie
+    //~Pipes();
 
-public:  
     void RedaktPipes();
 
     //void SohrPipes();
