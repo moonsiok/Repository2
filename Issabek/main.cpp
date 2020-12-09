@@ -55,7 +55,6 @@ Pipes& SelectPipes(vector <Pipes>& g)
     return g[index - 1];
 }
 
-
 void EditPipes(Pipes& p1)
 {
     p1.RedaktPipes();
