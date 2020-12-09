@@ -117,10 +117,36 @@ void PrintMenu()
             << "6. Print pipes" << endl
             << "7. Print CS" << endl
             << "8. Load All" << endl
-            << "9. Pipes Search by filter" << endl
-            << "10. CS Search byy filter" << endl
+            << "9. Search by filters" << endl
+            << "10. Batch Edit Pipe" << endl
             << "0. Exit" << endl<<endl;
     }
+
+vector<Pipes> EditOnePipe(vector<Pipes>& g)
+{
+    cout<< "please enter an ID of the pipe you want to edit: ";
+    int n;
+    cin>> n;
+    
+    cout << "0. a working pipe"<<endl<<"1. pipe under repair\n";
+    cout << "please choose to change its working status: \n";
+    int choice = GetCorrectNumber(0, 1);
+    g[n].UnderRepair = choice;
+    cout<< endl;
+    return g;
+}
+
+void EditAllPipes(vector<Pipes>& g)
+{
+    cout << "0. all working pipes\n1. all pipes under repair\n";
+    cout << "please choose to change working status of all pipes: \n";
+    int choice = GetCorrectNumber(0, 1);
+    cout << endl;
+    for (Pipes& i : g)
+    {
+        i.UnderRepair = choice;
+    }
+}
 
 void EditKC(KC& k1)
 {
@@ -218,7 +244,7 @@ int main()
             case 2:
             {
                 string name;
-                cout << "enter: ";
+                cout << "enter CS's name: ";
                 cin.ignore(1000, '\n');
                 getline(cin, name);
                 for (int i : FindItemsByFilter(group1, CheckByName, name))
@@ -241,9 +267,16 @@ int main()
         }
         case 10:
         {
-
-
-
+            cout << "1. Edit all pipes"<<endl
+                << "2. Edit one pipe" << endl;
+            if (GetCorrectNumber(1, 2) == 1)
+            {
+                EditAllPipes(group);
+            }
+            else
+            {
+                EditOnePipe(group);
+            }
             break;
         }
         case 0:

@@ -53,3 +53,6 @@ void Pipes::RedaktPipes()
     cout << "the pipe's status is changed but not saved";
 }
 
+
+
+

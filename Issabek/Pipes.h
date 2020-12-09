@@ -9,21 +9,22 @@ class Pipes
 private:
     int idPipes;
     static int PMaxID;
-public:  
     
+public:  
     std::string name;
     double  length;
     double diameter;
     bool UnderRepair;
 
     Pipes();
-        
+    
     //Pipes(const Pipes& p1);//kopirovanie
     //Pipes(Pipes&& p1);//peremewenie
     //~Pipes();
-
+ 
     void RedaktPipes();
-
+    
+  
     //void SohrPipes();
     //void ZagruzPipes();
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
