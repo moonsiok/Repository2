@@ -61,6 +61,17 @@ istream& operator >>(istream& in, KC& k1)
     return in;
 }
 
+std::ifstream& operator>>(std::ifstream& fin, KC& k1)
+{
+    fin >> k1.id >> k1.name >> k1.kol_cekhov >> k1.kol_cekhov_v_rabote >> k1.efficiency;
+    return fin;
+}
+
+std::ofstream& operator<<(std::ofstream& fout, const KC& k1)
+{
+    fout << k1.id <<endl<< k1.name <<endl<< k1.kol_cekhov <<endl<< k1.kol_cekhov_v_rabote <<endl<< k1.efficiency << endl;
+    return fout;
+}
 void KC::SohrKC()
 {
     ofstream fout;
@@ -93,13 +104,21 @@ void KC::ZagruzKC()
         group1.reserve(count);
         while (count--)
         {
-            fin >> id;
-            fin.ignore(2222, '\n');
-            getline(fin, name);
-            fin >> kol_cekhov;
-            fin >> kol_cekhov_v_rabote;
-            fin >> efficiency;
+            /*  fin >> id;
+              fin.ignore(2222, '\n');
+              getline(fin, name);
+              fin >> kol_cekhov;
+              fin >> kol_cekhov_v_rabote;
+              fin >> efficiency;
+          }
+          fin.close();*/
+            char ch;
+            while (fin.get(ch))
+            {
+                cout << ch;
+            }
+
+            fin.close();
         }
-        fin.close();
     }
 }

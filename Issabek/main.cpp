@@ -8,6 +8,46 @@
 #include "Utils.h"
 using namespace std;
 
+void SaveAll(vector <Pipes>& g, vector <KC> g1)
+{
+    if ((!g.size()) and (!g1.size()))
+        cout << "there is no information\n ";
+    else
+    {
+        ofstream fout;
+        fout.open("PipesAndCS.txt", ios::out);
+        if (fout.is_open())
+        {
+            fout << g.size() << endl;
+            fout << g1.size() << endl;
+            for (const auto& p1 : g)
+                fout << p1;
+            for (const auto& k1 : g1)
+                fout << k1;
+            fout.close();
+            cout << "information is saved\n";
+        }
+        else cout << "error";
+    }
+
+}
+
+void LoadAll(vector <Pipes>& g, vector <KC> g1)
+{
+    ifstream fin;
+    fin.open("PipesAndCS.txt", ios::in);
+    if (fin.is_open())
+    {
+        char ch;
+        while (fin.get(ch))
+        {
+            cout << ch;
+        }
+    }
+    else cout << "file is not found\n";
+    fin.close();
+}
+
 Pipes& SelectPipes(vector <Pipes>& g)
 {
     cout << "enter index: ";
@@ -15,98 +55,10 @@ Pipes& SelectPipes(vector <Pipes>& g)
     return g[index - 1];
 }
 
-void SavePipes( Pipes& p1)
-{
-    p1.SohrPipes();
-}
 
-//
-//void SavePipes(Pipes& p1)
-//{
-//    vector <Pipes> group;
-// 
-//    string path = "PipesAndKC.txt";
-//    ofstream fout;
-//    fout.open(path, ofstream::app);
-//    if (!fout.is_open())
-//    {
-//        fout << "error" << endl;
-//    }
-//    else
-//    {
-//        fout << group.size() << endl;
-//       
-//        for (const auto& p1 : group)
-//            fout << p1;
-//        
-//        fout.close();
-//    }
-//        
-//      
-//}
-
-//void SaveKC(KC& k1)
-//{
-//    vector <KC> group1;
-//    string path = "PipesAndKC.txt";
-//    ofstream fout;
-//    fout.open(path, ofstream::app);
-//    if (!fout.is_open())
-//    {
-//        fout << "error" << endl;
-//    }
-//    else
-//    {
-//                fout << group1.size() << endl;
-//        
-//        for (const auto& k1 : group1)
-//            fout << k1;
-//        fout.close();
-//    }
-//
-//
-//}
-Pipes LoadPipes(Pipes &p1)
-{   
-    vector <Pipes> group;
-    //Pipes p1;
-    p1.ZagruzPipes();
-    
-        /*fin >> p1.id;
-        fin >> p1.length;
-        fin >> p1.diameter;                   
-        fin >> p1.UnderRepair;
-        */
-    return p1;
-}
-//
-//Pipes LoadPipes(Pipes& p1)
-//{
-//    vector <Pipes> group;
-//        ifstream fin;
-//    fin.open("pipesandcs.txt", ios::in);
-//    if (fin.is_open())
-//    {
-//        int count;
-//        fin >> count;
-//        group.reserve(count);
-//        while (count--)
-//        {
-//            cout << group.size() << endl;
-//
-//            for (const auto& p1 : group)
-//                cout << p1;
-//        }
-//
-//        fin.close();
-//    }
-//    return p1;
-//}
 void EditPipes(Pipes& p1)
 {
     p1.RedaktPipes();
-   /* p1.UnderRepair = !p1.UnderRepair;
-    cout << "the pipe's status is changed but not saved";*/
 }
 
 KC& SelectKC(vector <KC>& g1)
@@ -115,65 +67,7 @@ KC& SelectKC(vector <KC>& g1)
     unsigned int index = GetCorrectNumber(1u, g1.size());
     return g1[index - 1];
 }
-//
-//void SaveKC(KC &k1)
-//{
-//    string path = "PipesAndKC.txt";
-//    ofstream fout;
-//    fout.open(path, ofstream::app);
-//    if (!fout.is_open())
-//    {
-//        fout << "error" << endl;
-//    }
-//    else
-//    {
-//        fout << group.size() << endl;
-//        for (Pipes p1 : group)
-//
-//            fout << id << endl;
-//        fout << length << endl;
-//        fout << diameter << endl;
-//        fout << UnderRepair << endl; fout.close();
-//    }
-//}
-void SaveKC(KC& k1)
-{
-    k1.SohrKC();
-}
-KC LoadKC(KC& k1)
-    {
-    k1.ZagruzKC();
-       
-                   /* fin >> k1.id;
-                    fin.ignore(2222, '\n');
-                    getline(fin, k1.name);
-                    fin >> k1.kol_cekhov;
-                    fin >> k1.kol_cekhov_v_rabote;
-                    fin >> k1.efficiency;*/
-        return k1;
-    }
-//KC LoadKC(KC& k1)
-//{
-//    vector <KC> group1;
-//        ifstream fin;
-//    fin.open("PipesAndKC.txt", ios::in);
-//    if (fin.is_open())
-//    {
-//        int count;
-//        fin >> count;
-//        group1.reserve(count);
-//        while (count--)
-//        {
-//
-//            cout << group1.size() << endl;
-//
-//            for (const auto& k1 : group1)
-//                cout << k1;
-//        }
-//        fin.close();
-//    }
-//    return k1;
-//}
+
 void PrintMenu()
     {
         cout << "\n1. Add Pipe" << endl
@@ -181,9 +75,9 @@ void PrintMenu()
             << "3. Save All" << endl
             << "4. Edit the pipe" << endl
             << "5. Edit the CS" << endl
-            << "6. Load the pipe" << endl
-            << "7. Load the CS" << endl
-            << "8. Print All" << endl
+            << "6. Print the pipe" << endl
+            << "7. Print the CS" << endl
+            << "8. Load All" << endl
             << "0. Exit" << endl<<endl;
     }
 
@@ -195,7 +89,6 @@ void EditKC(KC& k1)
   
 int main()
     {   
-       // Pipes p1;
         vector <Pipes> group;
         vector <KC> group1;
         while (1)
@@ -220,33 +113,7 @@ int main()
             }
             case 3:
             {
-               /* ofstream fout;
-                fout.open("PipesAndCS.txt", ios::out);
-                if (fout.is_open())
-                {
-                    
-                }
-
-            cout << "Information was successfully saved" << endl;
-            break;*/
-                /*string path = "PipesAndKC.txt";
-                ofstream fout;
-                fout.open(path, ofstream::app);
-                if (!fout.is_open())
-                {
-                    fout << "error" << endl;
-                }
-                else
-                {fout << group.size() << endl;
-                    for (Pipes p1: group)
-                   
-                    fout << p1.id << endl;
-                    fout << p1.length << endl;
-                    fout << p1.diameter << endl;
-                    fout << p1.UnderRepair << endl; fout.close();
-                }*/
-                SavePipes(SelectPipes(group));
-               // SaveKC(SelectKC(group1));
+                SaveAll(group, group1);
                 break;
             }
             case 4:
@@ -258,46 +125,29 @@ int main()
             break;
             }
             case 6:
-            { /*ifstream fin;
-            fin.open("PipesAndCS.txt", ios::in);
-            if (fin.is_open())
             {
-                int count;
-                fin >> count;
-                group.reserve(count);
-                while (count--) 
+                if (group.size())
                 {
-                group.push_back(LoadPipes(fin));
+                    for (const auto& p1: group) cout << p1 << endl;
                 }
-  
-                fin.close();
-            }*/
-                group.push_back(LoadPipes(SelectPipes(group)));
+                else cout << "there is no information about pipes\n ";
+               
+               
             break;
             }
             case 7:
-            {  /* ifstream fin;
-                fin.open("PipesAndCS.txt", ios::in);
-                if (fin.is_open())
+            { 
+                if (group1.size())
                 {
-                    int count;
-                    fin >> count;
-                    group1.reserve(count);
-                    while (count--)
-                    {
-                        group1.push_back(LoadKC(fin));
-                    }
-                    fin.close();
-                }*/
-                LoadKC(SelectKC(group1));
+                    for (const auto& k1 : group1) cout << k1 << endl;
+                }
+                else cout << "there is no information about pipes\n ";
+
             break;
             }
             case 8:
             {
-                for(auto& p1: group)
-                cout << p1 << endl;
-                for (auto& k1 : group1)
-                    cout << k1 << endl;
+                LoadAll(group, group1);
             break;
             }
             case 0:

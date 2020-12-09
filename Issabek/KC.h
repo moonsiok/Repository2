@@ -25,5 +25,7 @@ class KC
       void ZagruzKC();
         friend std::ostream& operator<<(std::ostream& out, const KC& k1);
         friend std::istream& operator >>(std::istream& in, KC& k1);
+        friend std::ofstream& operator << (std::ofstream& fout, const KC& k1);
+        friend std::ifstream& operator >> (std::ifstream& fin, KC& k1);
 };
 

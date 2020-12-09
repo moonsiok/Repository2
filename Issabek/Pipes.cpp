@@ -1,6 +1,7 @@
 #include "Pipes.h"
 //#include "Utils.h"
 #include "Utility.h"
+
 using namespace std;
 vector <Pipes> group;
 ostream& operator <<(ostream& out, const Pipes& p1)
@@ -58,12 +59,13 @@ void Pipes::SohrPipes()
     {
         fout << group.size() << endl;
         for (Pipes p1 : group)
-
-        fout << id << endl;
-        fout << length << endl;
-        fout << diameter << endl;
-        fout << UnderRepair << endl; 
-        fout.close();
+        {
+            fout << id << endl;
+            fout << length << endl;
+            fout << diameter << endl;
+            fout << UnderRepair << endl;
+            fout.close();
+        }
          cout << "information was successfully saved!";
     }
    
@@ -74,18 +76,23 @@ void Pipes::ZagruzPipes()
     ifstream fin;
     fin.open("PipesAndCS.txt", ios::in);
     if (fin.is_open())
-    {
-        int count=2;
+    {/*
+        int count;
         fin >> count;
-        group.reserve(count);
-        while (count--)
+       group.reserve(count);*/
+     /*   while (count--)
         {
         
              fin >> id;
             fin >> length;
             fin >> diameter;
             fin >> UnderRepair;
-        }
+        }*/
+       char ch;
+       while (fin.get(ch))
+       {
+           cout << ch;
+       }
 
         fin.close();
     }
