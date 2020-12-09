@@ -10,14 +10,14 @@ class Pipes
     int id ;
     double  length;
     double diameter;
-    bool UnderRepair;
+    bool UnderRepair=false;
 
 
 public:  
     void RedaktPipes();
 
-    void SavePipes();
-    void LoadPipes();
+    void SohrPipes();
+    void ZagruzPipes();
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
     friend std::istream& operator >>(std::istream& in, Pipes& p1);
     friend std::ofstream& operator << (std::ofstream& fout, const Pipes& p1);

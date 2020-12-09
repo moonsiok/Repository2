@@ -46,11 +46,10 @@ void Pipes::RedaktPipes()
     cout << "the pipe's status is changed but not saved";
 }
 
-void Pipes::SavePipes()
+void Pipes::SohrPipes()
 {
-    string path = "PipesAndKC.txt";
     ofstream fout;
-    fout.open(path, ofstream::app);
+    fout.open("PipesAndCS.txt", ios::out);
     if (!fout.is_open())
     {
         fout << "error" << endl;
@@ -60,25 +59,29 @@ void Pipes::SavePipes()
         fout << group.size() << endl;
         for (Pipes p1 : group)
 
-            fout << id << endl;
+        fout << id << endl;
         fout << length << endl;
         fout << diameter << endl;
-        fout << UnderRepair << endl; fout.close();
+        fout << UnderRepair << endl; 
+        fout.close();
+         cout << "information was successfully saved!";
     }
+   
 }
 
-void Pipes::LoadPipes()
+void Pipes::ZagruzPipes()
 {
     ifstream fin;
     fin.open("PipesAndCS.txt", ios::in);
     if (fin.is_open())
     {
-        int count;
+        int count=2;
         fin >> count;
         group.reserve(count);
         while (count--)
         {
-            fin >> id;
+        
+             fin >> id;
             fin >> length;
             fin >> diameter;
             fin >> UnderRepair;
