@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <vector>
+
 class KC
 {
 private:
@@ -16,14 +16,7 @@ public:
     
    
         KC();
-        //KC(std::string name);
-        //KC(const KC& k);//kopirovanie
-        //KC(KC&& k);//peremewenie
-        //~KC();
-
-
-        /*std::string GetName()  const;
-        void SetName(std::string);*/
+        int GetID() const;
         void RedaktKC();
      
         friend std::ostream& operator<<(std::ostream& out, const KC& k1);

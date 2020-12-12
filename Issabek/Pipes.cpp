@@ -1,9 +1,7 @@
 #include "Pipes.h"
-//#include "Utils.h"
 #include "Utility.h"
 using namespace std;
-int Pipes::PMaxID = 0001;
-vector <Pipes> group;
+int Pipes::PMaxID = 1;
 ostream& operator <<(ostream& out, const Pipes& p1)
 {
     out << "\t*Pipes*\n";
@@ -51,6 +49,11 @@ void Pipes::RedaktPipes()
 {
     UnderRepair = !UnderRepair;
     cout << "the pipe's status is changed but not saved";
+}
+
+int Pipes::GetID() const
+{
+    return idPipes;
 }
 
 

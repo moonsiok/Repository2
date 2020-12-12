@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 
-
 unsigned int GetCorrectNumber(unsigned int min, size_t max)
 {
     unsigned int value;

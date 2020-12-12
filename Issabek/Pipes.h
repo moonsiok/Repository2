@@ -1,8 +1,7 @@
 #pragma once
-//#include <string>
 #include <iostream>
 #include <fstream>
-#include <vector>
+
 
 class Pipes
 {
@@ -17,11 +16,8 @@ public:
     bool UnderRepair;
 
     Pipes();
-    
-    //Pipes(const Pipes& p1);//kopirovanie
-    //Pipes(Pipes&& p1);//peremewenie
-    //~Pipes();
- 
+   
+    int GetID() const;
     void RedaktPipes();
    
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
