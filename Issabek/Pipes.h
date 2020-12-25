@@ -11,12 +11,30 @@ private:
     
 public:  
     std::string name;
+    double weight;
     double  length;
     double diameter;
     bool UnderRepair;
-
+    int start;
+    int end;
+    bool used;
     Pipes();
-   
+    std::string GetName() const;
+
+    int GetDiameter() const;
+
+    double GetWeight() const;
+
+    int GetLength() const;
+
+    bool GetStatus() const;
+
+    void SetStart(int);
+    void SetEnd(int);
+
+    int GetStart() const;
+    int GetEnd() const;
+
     int GetID() const;
     void RedaktPipes();
    

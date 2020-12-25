@@ -56,6 +56,44 @@ int Pipes::GetID() const
     return idPipes;
 }
 
+string Pipes::GetName() const
+{
+    return name;
+}
+int Pipes::GetDiameter() const
+{
+    return diameter;
+}
+int Pipes::GetLength() const
+{
+    return length;
+}
+bool Pipes::GetStatus() const
+{
+    return UnderRepair;
+}
+
+void Pipes::SetStart(int new_start)
+{
+    start = new_start;
+}
+
+void Pipes::SetEnd(int new_end)
+{
+    end = new_end;
+}
+
+int Pipes::GetStart() const
+{
+    return start;
+}
+
+int Pipes::GetEnd() const
+{
+    return end;
+}
+
+
 
 
 
