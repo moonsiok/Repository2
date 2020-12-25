@@ -45,6 +45,11 @@ Pipes::Pipes()
     UnderRepair = false;
 }
 
+double Pipes::GetWeight() const
+{
+    return length;
+}
+
 void Pipes::RedaktPipes()
 {
     UnderRepair = !UnderRepair;

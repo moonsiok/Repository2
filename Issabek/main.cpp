@@ -104,6 +104,7 @@ void PrintMenu()
         << "11. Add CS to transmission" << endl
         << "12. Add Pipe to transmission" << endl
         << "13. Connect CS" << endl
+        << "14. Topological Sort" << endl
             << "0. Exit" << endl<<endl;
     }
 
@@ -161,20 +162,20 @@ int main()
     {
         cout << "\nChoose from the menu " << endl;
         PrintMenu();
-        switch (GetCorrectNumber(0, 13))
+        switch (GetCorrectNumber(0, 14))
         {
         case 1:
         {
             Pipes p;
             cin >> p;
-            pipes_p.insert(pair<int,Pipes>(p.GetID(),p));
+            pipes_p.insert(pair<int,Pipes>(p.GetMaxID(),p));
             break;
         }
         case 2:
         {
             KC k;
             cin >> k;
-            kc_k.insert(pair<int, KC>(k.GetID(), k));
+            kc_k.insert(pair<int, KC>(k.GetMaxID(), k));
             break;
         }
         case 3:
@@ -309,6 +310,12 @@ int main()
         case 13: 
         {
             Network.ConnectEdges(kc_k, pipes_p);
+            break;
+        }
+        case 14:
+        {
+            Network.CreateAdjacencyMatrix(kc_k, pipes_p);
+            Network.TopSort();
             break;
         }
         case 0:

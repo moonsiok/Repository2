@@ -37,6 +37,10 @@ public:
 
 	void DeleteVertex(int);
 
+	void UpdateIndexCS();
+
+	int GetIDkc(int index) const;
+
 	void TopologicalSort(int, vector<int>&, bool&, vector<int>&);
 
 	void TopSort();
