@@ -6,6 +6,7 @@
 #include "Pipes.h"
 #include "Utility.h"
 #include "Utils.h"
+#include "Network.h"
 using namespace std;
 string EnterName()
 {
@@ -100,6 +101,9 @@ void PrintMenu()
         << "8. Load All" << endl
         << "9. Search by filters" << endl
         << "10. Delete Objects" << endl
+        << "11. Add CS to transmission" << endl
+        << "12. Add Pipe to transmission" << endl
+        << "13. Connect CS" << endl
             << "0. Exit" << endl<<endl;
     }
 
@@ -150,13 +154,14 @@ void DelKC(unordered_map <int, KC>& kc_k)
 }
 int main()
 {
+    Network Network;
     unordered_map <int, Pipes> pipes_p;
     unordered_map <int, KC> kc_k;
     while (1)
     {
         cout << "\nChoose from the menu " << endl;
         PrintMenu();
-        switch (GetCorrectNumber(0, 10))
+        switch (GetCorrectNumber(0, 13))
         {
         case 1:
         {
@@ -287,6 +292,23 @@ int main()
             {
                 DelKC(kc_k);
             }
+            break;
+        }
+        case 11: 
+        {
+            cout << "Enter an ID of CS: " << endl;
+            Network.AddKC(kc_k, GetCorrectNumber(0, KC::GetMaxID()));
+            break;
+        }
+        case 12: 
+        {
+            cout << "Enter an ID of Pipe" << endl;
+            Network.AddPipes(pipes_p, GetCorrectNumber(0, Pipes::GetMaxID()));
+            break;
+        }
+        case 13: 
+        {
+            Network.ConnectEdges(kc_k, pipes_p);
             break;
         }
         case 0:

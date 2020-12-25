@@ -141,10 +141,12 @@
   <ItemGroup>
     <ClCompile Include="KC.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="Pipes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KC.h" />
+    <ClInclude Include="Network.h" />
     <ClInclude Include="Pipes.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Utils.h" />

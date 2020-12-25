@@ -16,6 +16,7 @@ public:
     
    
         KC();
+        static int GetMaxID();
         int GetID() const;
         void RedaktKC();
      

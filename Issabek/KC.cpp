@@ -53,6 +53,11 @@ KC::KC()
     efficiency = 0;
 }
 
+int KC::GetMaxID()
+{
+    return MaxID;
+}
+
 void KC::RedaktKC()
 {
     cout << "do you want to change the number of workshops in operation?(y/n)\n";

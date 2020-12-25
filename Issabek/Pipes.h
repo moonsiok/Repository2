@@ -36,6 +36,7 @@ public:
     int GetEnd() const;
 
     int GetID() const;
+    static int GetMaxID();
     void RedaktPipes();
    
     friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);

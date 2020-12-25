@@ -56,6 +56,11 @@ int Pipes::GetID() const
     return idPipes;
 }
 
+int Pipes::GetMaxID()
+{
+    return PMaxID;
+}
+
 string Pipes::GetName() const
 {
     return name;
