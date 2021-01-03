@@ -4,46 +4,41 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <vector>
-
+//#include "utils.h"
+#include <set>
+#include <stack>
+#include <iostream>
 
 using namespace std;
 
 class Network
 {
-	unordered_set<int> edges;
-	unordered_set<int> vertex;
 
-	unordered_map<int, int> IdIndexKC;
-	unordered_map<int, int> IdIndexPipes;
-
-	vector<vector<int>> AdjacencyMatrix;
-	vector<vector<int>> IncidenceMatrix;
+	unordered_map<int, Pipes> pGroup;
+	unordered_map<int, KC> csGroup;
+	vector<vector<int>> GetEdgesAndVertexes(unordered_map<int, int>& indexVertexes, int& n);
 	bool is_changed;
 
+
 public:
-	int GetKCIndex(int) const;
-
-	void AddKC(const unordered_map<int, KC>&, int);
-
-	void AddPipes(const unordered_map<int, Pipes>&, int);
-
-	void ConnectEdges(unordered_map<int, KC>&, unordered_map<int, Pipes>&);
-
-
-	void CreateAdjacencyMatrix(unordered_map<int, KC>&, unordered_map<int, Pipes>&);
-
-
-	void DeleteEdge(int, unordered_map<int, Pipes>&);
-
-	void DeleteVertex(int);
-
-	void UpdateIndexCS();
-
-	int GetIDkc(int index) const;
-
-	void TopologicalSort(int, vector<int>&, bool&, vector<int>&);
-
-	void TopSort();
-
+	Network();
+	Network(ifstream& fin);
+	friend ostream& operator << (ostream& out, const Network& GTS);
+	void SaveToFile(ofstream& fout);
+	bool HasPipe() const;
+	bool HasCs(int count = 1) const;
+	void EditPipe();
+	void EditCs();
+	void DeletePipe();
+	void DeleteCs();
+	void ConnectPipe();
+	void DisconnectPipe();
+	bool CanBeUsed(const Pipes& p) const;
+	void ShowNetwork();
+	void FindMaxFlow();
+	void FindShortestPath();
+	void AddCS();
+	void AddPipe();
+	void TopologicalSort();
 };
 

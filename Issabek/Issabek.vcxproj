@@ -148,6 +148,7 @@
     <ClInclude Include="KC.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Pipes.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

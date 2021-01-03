@@ -1,11 +1,23 @@
 #include "Pipes.h"
+#include "Util.h"
 #include "Utility.h"
+#include <iostream>
+#include <fstream>
+
 using namespace std;
 int Pipes::PMaxID = 1;
+int Pipes::Maxid = 1;
+std::string name;
+int diameter;
+int length;
+bool UnderRepair;
+int startid;
+int endid;
+
 ostream& operator <<(ostream& out, const Pipes& p1)
 {
     out << "\t*Pipes*\n";
-    out << "the ID of the pipe: " << p1.idPipes << endl;
+ //   out << "the ID of the pipe: " << p1.idPipes << endl;
     out << "the length: " << p1.length << endl;
     out << "the diameter: " << p1.diameter << endl;
     (p1.UnderRepair) ? out << "the pipe is under repair\n" : out << "the pipe works\n"; //tern operator
@@ -16,12 +28,14 @@ ostream& operator <<(ostream& out, const Pipes& p1)
 istream& operator>>(istream& in, Pipes& p1)
 {
     cout << "\t*Pipes*\n";
-    cout << "the ID of the new pipe: " << p1.idPipes << endl;
+    //cout << "the ID of the new pipe: " << p1.idPipes << endl;
     cout << "enter the length(in m): ";
     p1.length = GetCorrectNumber(1.0, 1000.0);
     cout << "enter the diameter(in mm): ";
     p1.diameter = GetCorrectNumber(1.0, 1000.0);
     (p1.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n";
+    p1.startid = -1;
+    p1.endid = -1;
     return in;
 }
 
@@ -36,13 +50,9 @@ std::ofstream& operator<<(std::ofstream& fout, const Pipes& p1)
     fout << p1.idPipes << endl << p1.length << endl << p1.diameter << endl << p1.UnderRepair << endl;
     return fout;
 }
-//int PMaxID = 0001;
+
 Pipes::Pipes()
 {
-   idPipes = PMaxID++;
-    length = 0.0;
-    diameter = 0.0;
-    UnderRepair = false;
 }
 
 double Pipes::GetWeight() const
@@ -83,27 +93,59 @@ bool Pipes::GetStatus() const
     return UnderRepair;
 }
 
-void Pipes::SetStart(int new_start)
+int Pipes::GetProductivity() const
 {
-    start = new_start;
-}
-
-void Pipes::SetEnd(int new_end)
-{
-    end = new_end;
-}
-
-int Pipes::GetStart() const
-{
-    return start;
-}
-
-int Pipes::GetEnd() const
-{
-    return end;
+    return length;
 }
 
 
+Pipes::Pipes(std::ifstream& fin)
+{
+    fin.ignore();
+    std::getline(fin, name);
+    fin
+        >> length
+        >> diameter
+        >> UnderRepair
+        >> startid
+        >> endid;
+}
 
-
-
+void Pipes::SaveToFile(std::ofstream& fout)
+{
+    fout << name << '\n'
+        << length << '\n'
+        << diameter << '\n'
+        << UnderRepair << '\n'
+        << startid << '\n'
+        << endid << '\n';
+}
+void Pipes::Edit()
+{
+    if (UnderRepair)
+        std::cout << "\nThe pipe does not need to be repaired.\n";
+    else
+        std::cout << "\nThe pipe is broken!\n";
+    std::cout << "Whta do you want to do with pipe?\n"
+        << "1 - To fix/To break\n"
+        << "0 and etc. - Exit\n";
+    int input;
+    proverka2(input, "Enter: ");
+    switch (input)
+    {
+    case 1:
+    {
+        UnderRepair = !UnderRepair;
+        std::cout << "Pipe repair completed successfully!\n";
+    }
+    default:
+    {
+        std::cout << "You are out of editing mode.\n";
+        break;
+    }
+    }
+}
+void Pipes::IsBroken()
+{
+    UnderRepair = false;
+}

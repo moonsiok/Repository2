@@ -1,11 +1,12 @@
 #include "KC.h"
 #include "Utility.h"
 using namespace std;
-int KC::MaxID = 1001;
+int KC::MaxID = 1;
+int KC::csMaxid = 1;
 ostream& operator<<(ostream& out, const KC& k1)
 {
     out << "\t*Compressor Station*\n";
-    out << "the ID of the CS: " << k1.idKC << endl;
+   // out << "the ID of the CS: " << k1.idKC << endl;
     out << "the name: " << k1.name << endl;
     out << "the number of workshops: " << k1.kol_cekhov << endl;
     out << "the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
@@ -16,7 +17,7 @@ ostream& operator<<(ostream& out, const KC& k1)
 istream& operator >>(istream& in, KC& k1)
 {
     cout << "\t*Compressor station*\n";
-    cout << "the ID of the new pipe: " << k1.idKC << endl;
+  //  cout << "the ID of the new pipe: " << k1.idKC << endl;
     cout << "enter the name: ";
     in.ignore(1000, '\n');
     getline(in, k1.name); 
@@ -43,7 +44,6 @@ std::ofstream& operator<<(std::ofstream& fout, const KC& k1)
     return fout;
 }
 
-int ID = 1001;
 KC::KC()
 {
     idKC = MaxID++;
@@ -90,3 +90,50 @@ int KC::GetID() const
 {
     return idKC;
 }
+
+int KC::GetMaxid()
+{
+    return MaxID;
+}
+
+KC::KC(std::ifstream& fin)
+{
+}
+
+std::string KC::GetName() const
+{
+    return name;
+}
+
+
+int KC::GetWorking() const
+{
+    return kol_cekhov_v_rabote;
+}
+
+
+int KC::GetWorkshops() const
+{
+    return kol_cekhov;
+}
+
+
+double KC::GetEfficiency() const
+{
+    return efficiency;
+}
+
+double KC::GetPercentWorkingWorkshops() const
+{
+    return  100.0 * (kol_cekhov-kol_cekhov_v_rabote) / kol_cekhov;
+}
+
+void KC::SaveToFile(std::ofstream& fout)
+{
+    fout << name << '\n'
+        << kol_cekhov << '\n'
+        << kol_cekhov_v_rabote << '\n'
+        << efficiency << '\n';
+}
+
+

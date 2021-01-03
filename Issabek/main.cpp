@@ -6,6 +6,7 @@
 #include "Pipes.h"
 #include "Utility.h"
 #include "Utils.h"
+#include "util.h"
 #include "Network.h"
 using namespace std;
 string EnterName()
@@ -16,60 +17,60 @@ string EnterName()
     getline(cin, filename);
     return filename;
 }
-
-void SaveAll(const unordered_map<int, Pipes>& pipes_p, const unordered_map <int, KC>& kc_k)
-{
-    if ((!pipes_p.size()) and (!kc_k.size()))
-        cout << "there is no available information\n ";
-    else
-    {
-        ofstream fout;
-        fout.open(EnterName(), ios::out);
-        if (fout.is_open())
-        {
-            fout << pipes_p.size() << endl;
-            fout << kc_k.size() << endl;
-            for (const auto& p : pipes_p)
-                fout << p.second;
-            for (const auto& k : kc_k)
-                fout << k.second;
-            fout.close();
-            cout << "information is saved\n";
-        }
-        else cout << "error";
-    }
-
-}
-
-void LoadAll(unordered_map <int, Pipes>& pipes_s, unordered_map <int, KC>& kc_k)
-{
-    ifstream fin;
-    fin.open(EnterName(), ios::in);
-    if (fin.is_open())
-    {
-        char ch;
-        while (fin.get(ch))
-        {
-            cout << ch;
-        }
-    }
-    else cout << "error\n";
-    fin.close();
-}
+//
+//void SaveAll(const unordered_map<int, Pipes>& pipes_p, const unordered_map <int, KC>& kc_k)
+//{
+//    if ((!pipes_p.size()) and (!kc_k.size()))
+//        cout << "there is no available information\n ";
+//    else
+//    {
+//        ofstream fout;
+//        fout.open(EnterName(), ios::out);
+//        if (fout.is_open())
+//        {
+//            fout << pipes_p.size() << endl;
+//            fout << kc_k.size() << endl;
+//            for (const auto& p : pipes_p)
+//                fout << p.second;
+//            for (const auto& k : kc_k)
+//                fout << k.second;
+//            fout.close();
+//            cout << "information is saved\n";
+//        }
+//        else cout << "error";
+//    }
+//
+//}
+//
+//void LoadAll(unordered_map <int, Pipes>& pipes_s, unordered_map <int, KC>& kc_k)
+//{
+//    ifstream fin;
+//    fin.open(EnterName(), ios::in);
+//    if (fin.is_open())
+//    {
+//        char ch;
+//        while (fin.get(ch))
+//        {
+//            cout << ch;
+//        }
+//    }
+//    else cout << "error\n";
+//    fin.close();
+//}
 
 template <typename W, typename T>
 using Filter = bool(*)(const W& o, T param);
 bool CheckByRepairStatus(const Pipes& p, bool UnderRepair)
 {
-    return p.UnderRepair == UnderRepair;
+    return p.GetStatus() == UnderRepair;
 }
 bool CheckByName(const KC& k, string name)
 {
-    return k.name == name;
+    return k.GetName() == name;
 }
 bool CheckByPercentageOfWorkshops(const KC& k, double percent)
 {
-    return percent <= (double)(100 * (k.kol_cekhov - k.kol_cekhov_v_rabote) / k.kol_cekhov);
+    return (k.GetPercentWorkingWorkshops() >= percent);
 }
 template <typename W, typename T>
 vector<int> FindItemsByFilter(const unordered_map <int,W>& g, Filter <W,T> f, T param)
@@ -101,24 +102,26 @@ void PrintMenu()
         << "8. Load All" << endl
         << "9. Search by filters" << endl
         << "10. Delete Objects" << endl
-        << "11. Add CS to transmission" << endl
-        << "12. Add Pipe to transmission" << endl
-        << "13. Connect CS" << endl
+        << "11. Establish a connection" << endl
+        << "12. Delete a connection" << endl
+        << "13. Show GTS" << endl
         << "14. Topological Sort" << endl
+        << "15. The shortest path" << endl
+        << "16. The maximum flow" << endl
             << "0. Exit" << endl<<endl;
     }
 
-void EditOnePipe(unordered_map<int, Pipes>& pipes_p)
-{
-    cout<< "please enter an ID of the pipe you want to edit: ";
-    int n;
-    cin>> n;
-    
-    cout << "0. a working pipe"<<endl<<"1. pipe under repair\n";
-    cout << "please choose to change its working status: \n";
-    int choice = GetCorrectNumber(0, 1);
-    pipes_p[n].UnderRepair = choice;
-}
+//void EditOnePipe(unordered_map<int, Pipes>& pipes_p)
+//{
+//    cout<< "please enter an ID of the pipe you want to edit: ";
+//    int n;
+//    cin>> n;
+//    
+//    cout << "0. a working pipe"<<endl<<"1. pipe under repair\n";
+//    cout << "please choose to change its working status: \n";
+//    int choice = GetCorrectNumber(0, 1);
+//    pipes_p[n].GetStatus() = choice;
+//}
 
 void DelPipes(unordered_map<int, Pipes> &pipes_p)
 {
@@ -155,32 +158,53 @@ void DelKC(unordered_map <int, KC>& kc_k)
 }
 int main()
 {
-    Network Network;
+    Network gts =Network();
     unordered_map <int, Pipes> pipes_p;
     unordered_map <int, KC> kc_k;
     while (1)
     {
         cout << "\nChoose from the menu " << endl;
         PrintMenu();
-        switch (GetCorrectNumber(0, 14))
+        switch (GetCorrectNumber(0, 16))
         {
         case 1:
         {
-            Pipes p;
-            cin >> p;
-            pipes_p.insert(pair<int,Pipes>(p.GetMaxID(),p));
+            gts.AddPipe();
             break;
         }
         case 2:
         {
-            KC k;
-            cin >> k;
-            kc_k.insert(pair<int, KC>(k.GetMaxID(), k));
+            gts.AddCS();
             break;
         }
         case 3:
         {
-            SaveAll(pipes_p, kc_k);
+            if (gts.HasPipe() == false && gts.HasCs() == false)
+            {
+                cout << "You didn't add any pipe or CS. Do you really want to save the file?\n";
+                int input;
+                proverka2(input, "(1 - Yes, 0 and etc. - No): ");
+                if (input != 1)
+                {
+                    cout << "Cancel the save\n";
+                    break;
+                }
+            }
+            string filename;
+            cout << "Type filename: ";
+            cin >> filename;
+            ofstream fout;
+            fout.open(filename, ios::out);
+            if (fout.is_open())
+            {
+                gts.SaveToFile(fout);
+                fout.close();
+                cout << "The file was saved successfully\n";
+            }
+            else
+            {
+                cout << "Error saving the file!\n";
+            }
             break;
         }
         case 4:
@@ -196,18 +220,21 @@ int main()
             }
             else
             {
-                EditOnePipe(pipes_p);
+                if (gts.HasPipe())
+                    gts.EditPipe();
+                else
+                    cout << "You don't have any pipe\n";
             }
             break;
         break;
         }
         case 5:
         {   
-            cout << "please enter an ID of the CS you want to edit: ";
-            int n;
-            cin >> n;
-            kc_k[n].RedaktKC();
-        break;
+            if (gts.HasCs())
+                gts.EditCs();
+            else
+                cout << "You don't have any CS\n";
+            break;
         }
         case 6:
         {
@@ -232,7 +259,21 @@ int main()
         }
         case 8:
         {
-            LoadAll(pipes_p, kc_k);
+            string filename;
+            cout << "Type filename: ";
+            cin >> filename;
+            ifstream fin;
+            fin.open(filename, ios::in);
+            if (fin.is_open())
+            {
+                gts = Network(fin);
+                fin.close();
+                cout << "The file was uploaded successfully\n";
+            }
+            else
+            {
+                cout << "Error saving the file!\n";
+            }
             break;
         }
         case 9:
@@ -297,25 +338,41 @@ int main()
         }
         case 11: 
         {
-            cout << "Enter an ID of CS: " << endl;
-            Network.AddKC(kc_k, GetCorrectNumber(0, KC::GetMaxID()));
+            if (gts.HasPipe() && gts.HasCs(2))
+                gts.ConnectPipe();
+            else
+                cout << "You don't have any pipes and CS for linking.\n";
+            break;
+            gts.TopologicalSort();
             break;
         }
         case 12: 
         {
-            cout << "Enter an ID of Pipe" << endl;
-            Network.AddPipes(pipes_p, GetCorrectNumber(0, Pipes::GetMaxID()));
+            if (gts.HasPipe() && gts.HasCs(2))
+                gts.DisconnectPipe();
+            else
+                cout << "You don't have any linking\n";
             break;
         }
         case 13: 
         {
-            Network.ConnectEdges(kc_k, pipes_p);
+            gts.ShowNetwork();
             break;
         }
         case 14:
         {
-            Network.CreateAdjacencyMatrix(kc_k, pipes_p);
-            Network.TopSort();
+            gts.TopologicalSort();
+            break;
+        }
+        case 15:
+        {
+            gts.FindShortestPath();
+            break;
+        }
+
+        case 16:
+        {
+            gts.FindMaxFlow();
             break;
         }
         case 0:
