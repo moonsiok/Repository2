@@ -5,8 +5,8 @@
 #include <fstream>
 
 using namespace std;
-int Pipes::PMaxID = 1;
-int Pipes::Maxid = 1;
+int Pipes::PMaxID = 0;
+int Pipes::Maxid = 0;
 std::string name;
 int diameter;
 int length;
@@ -14,45 +14,39 @@ bool UnderRepair;
 int startid;
 int endid;
 
-ostream& operator <<(ostream& out, const Pipes& p1)
+ostream& operator <<(ostream& out, const Pipes& p)
 {
     out << "\t*Pipes*\n";
- //   out << "the ID of the pipe: " << p1.idPipes << endl;
-    out << "the length: " << p1.length << endl;
-    out << "the diameter: " << p1.diameter << endl;
-    (p1.UnderRepair) ? out << "the pipe is under repair\n" : out << "the pipe works\n"; //tern operator
+    out << "the name: " << p.name << endl;
+    out << "the length: " << p.length << endl;
+    out << "the diameter: " << p.diameter << endl;
+    (p.UnderRepair) ? out << "the pipe is under repair\n" : out << "the pipe works\n"; //tern operator
     return out;
 }
 
 
-istream& operator>>(istream& in, Pipes& p1)
+istream& operator>>(istream& in, Pipes& p)
 {
     cout << "\t*Pipes*\n";
-    //cout << "the ID of the new pipe: " << p1.idPipes << endl;
+    std::cout << "enter the name: " ;
+    std::cin.ignore(256, '\n');
+    getline(in, p.name, '\n');
     cout << "enter the length(in m): ";
-    p1.length = GetCorrectNumber(1.0, 1000.0);
+    p.length = GetCorrectNumber(1.0, 1000.0);
     cout << "enter the diameter(in mm): ";
-    p1.diameter = GetCorrectNumber(1.0, 1000.0);
-    (p1.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n";
-    p1.startid = -1;
-    p1.endid = -1;
+    p.diameter = GetCorrectNumber(1.0, 1000.0);
+    (p.UnderRepair) ? cout << "the pipe is under repair\n" : cout << "the pipe works\n";
+    p.startid = -1;
+    p.endid = -1;
     return in;
-}
-
-std::ifstream& operator>>(std::ifstream& fin, Pipes& p1)
-{
-    fin >> p1.idPipes >> p1.length >> p1.diameter >> p1.UnderRepair;
-    return fin;
-}
-
-std::ofstream& operator<<(std::ofstream& fout, const Pipes& p1)
-{
-    fout << p1.idPipes << endl << p1.length << endl << p1.diameter << endl << p1.UnderRepair << endl;
-    return fout;
 }
 
 Pipes::Pipes()
 {
+    id = Maxid++;
+    name = "name";
+    length = 0.0;
+    diameter = 0.0;
 }
 
 double Pipes::GetWeight() const
@@ -68,12 +62,12 @@ void Pipes::RedaktPipes()
 
 int Pipes::GetID() const
 {
-    return idPipes;
+    return id;
 }
 
 int Pipes::GetMaxID()
 {
-    return PMaxID;
+    return Maxid;
 }
 
 string Pipes::GetName() const

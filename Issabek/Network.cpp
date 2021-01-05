@@ -246,12 +246,12 @@ void Network::FindShortestPath()
 			graph[invertIndexVertexes[p.second.startid]][invertIndexVertexes[p.second.endid]] = p.second.GetLength();
 
 	int start;
-	proverka2(start, "Type ID CS, from which you need to calculate the paths (0 - exit): ");
+	proverka2(start, "Type an ID of the CS, from which you need to calculate the paths (0 - exit): ");
 	if (invertIndexVertexes.find(start) != invertIndexVertexes.end())
 		start = invertIndexVertexes[start];
 	else
 	{
-		cout << "CS doesn't exist in the network!!";
+		cout << "The CS doesn't exist in the network!!";
 		return;
 	}
 	Dijkstra(graph, n, start, indexVertexes);
@@ -270,8 +270,8 @@ void Network::EditCs()
 	if (id != -1)
 	{
 		cout << "\nWhat do you want to do with CS?\n"
-			<< "1 - Change the number of working workshops\n"
-			<< "0 and etc. - Exit\n";
+			<< "1. Change the number of working workshops\n"
+			<< "0. Exit\n";
 		int input;
 		proverka2(input, "Enter: ");
 		switch (input)
@@ -308,7 +308,7 @@ void Network::DeletePipe()
 	if (id != -1)
 	{
 		pGroup.erase(id);
-		cout << "The pipe successfully deleted!\n";
+		cout << "The pipe was successfully deleted!\n";
 	}
 }
 
@@ -318,7 +318,7 @@ void Network::DeleteCs()
 	if (id != -1)
 	{
 		csGroup.erase(id);
-		cout << "CS successfully deleted!\n";
+		cout << "The CS was successfully deleted!\n";
 	}
 }
 
@@ -364,9 +364,9 @@ void Network::ConnectPipe()
 	int id = GetInputId(pGroup);
 	if (id != -1)
 	{
-		cout << "CS from which the pipe comes out:\n";
+		cout << "The CS from which the pipe comes out:\n";
 		int outCsId = GetInputId(csGroup);
-		cout << "CS from which the pipe comes in:\n";
+		cout << "The CS from which the pipe comes in:\n";
 		int inCsId = GetInputId(csGroup);
 		while (inCsId == outCsId)
 		{
@@ -381,7 +381,7 @@ void Network::ConnectPipe()
 	}
 	else
 	{
-		cout << "Exiting the pipe-to-CS communication mode...\n";
+		cout << "Exiting the pipe-to-CS communication mode.\n";
 	}
 }
 
@@ -395,7 +395,7 @@ void Network::DisconnectPipe()
 	}
 	else
 	{
-		cout << "Exiting the pipe-to-CS communication mode...\n";
+		cout << "Exiting the pipe-to-CS communication mode.\n";
 	}
 }
 
@@ -461,21 +461,21 @@ void Network::FindMaxFlow()
 			graph[invertIndexVertexes[p.second.startid]][invertIndexVertexes[p.second.endid]] = p.second.GetProductivity();
 
 	int start;
-	proverka2(start, "Enter the ID of the CS from which the stream will come: ");
+	proverka2(start, "Enter an ID of the CS from which the stream will come: ");
 	if (invertIndexVertexes.find(start) != invertIndexVertexes.end())
 		start = invertIndexVertexes[start];
 	else
 	{
-		cout << "CS doesn't exist in the network";
+		cout << "The CS doesn't exist in the network";
 		return;
 	}
 	int end;
-	proverka2(end, "Enter the ID of the CS to which the stream will come: ");
+	proverka2(end, "Enter an ID of the CS to which the stream will come: ");
 	if (invertIndexVertexes.find(end) != invertIndexVertexes.end())
 		end = invertIndexVertexes[end];
 	else
 	{
-		cout << "CS doesn't exist in the network";
+		cout << "The CS doesn't exist in the network";
 		return;
 	}
 
@@ -508,7 +508,7 @@ void Network::FindMaxFlow()
 		}
 		maxflow += delta;
 	}
-	cout << "Maximum flow: " << maxflow << endl;
+	cout << "The Maximum flow: " << maxflow << endl;
 }
 
 

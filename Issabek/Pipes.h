@@ -6,11 +6,11 @@
 
 class Pipes
 {
-    int idPipes;
+    int id;
     std::string name;
     double  length;
     double diameter;
-    bool UnderRepair;
+    bool UnderRepair=false;
     static int Maxid;
 public:  
     static int PMaxID;
@@ -31,9 +31,7 @@ public:
     void Edit();
     void SaveToFile(std::ofstream& fout);
     void IsBroken();
-    friend std::ostream& operator<<(std::ostream& out, const Pipes& p1);
-    friend std::istream& operator >>(std::istream& in, Pipes& p1);
-    friend std::ofstream& operator << (std::ofstream& fout, const Pipes& p1);
-    friend std::ifstream& operator >> (std::ifstream& fin, Pipes& p1);
+    friend std::ostream& operator<<(std::ostream& out, const Pipes& p);
+    friend std::istream& operator >>(std::istream& in, Pipes& p);
 };
 

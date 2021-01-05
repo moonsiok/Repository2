@@ -99,7 +99,7 @@ void PrintMenu()
         << "5. Edit the CS" << endl
         << "6. Print pipes" << endl
         << "7. Print CS" << endl
-        << "8. Load All" << endl
+        << "8. View All" << endl
         << "9. Search by filters" << endl
         << "10. Delete Objects" << endl
         << "11. Establish a connection" << endl
@@ -183,7 +183,7 @@ int main()
             {
                 cout << "You didn't add any pipe or CS. Do you really want to save the file?\n";
                 int input;
-                proverka2(input, "(1 - Yes, 0 and etc. - No): ");
+                proverka2(input, "(1. Yes, 0. No): ");
                 if (input != 1)
                 {
                     cout << "Cancel the save\n";
@@ -259,21 +259,7 @@ int main()
         }
         case 8:
         {
-            string filename;
-            cout << "Type filename: ";
-            cin >> filename;
-            ifstream fin;
-            fin.open(filename, ios::in);
-            if (fin.is_open())
-            {
-                gts = Network(fin);
-                fin.close();
-                cout << "The file was uploaded successfully\n";
-            }
-            else
-            {
-                cout << "Error saving the file!\n";
-            }
+            cout << gts;
             break;
         }
         case 9:

@@ -1,52 +1,38 @@
 #include "KC.h"
 #include "Utility.h"
 using namespace std;
-int KC::MaxID = 1;
-int KC::csMaxid = 1;
-ostream& operator<<(ostream& out, const KC& k1)
+int KC::MaxID = 0;
+int KC::csMaxid = 0;
+ostream& operator<<(ostream& out, const KC& cs)
 {
     out << "\t*Compressor Station*\n";
-   // out << "the ID of the CS: " << k1.idKC << endl;
-    out << "the name: " << k1.name << endl;
-    out << "the number of workshops: " << k1.kol_cekhov << endl;
-    out << "the number of workshops in operation: " << k1.kol_cekhov_v_rabote << endl;
-    out << "the efficiency: " << k1.efficiency << endl;
+    out << "the name: " << cs.name << endl;
+    out << "the number of workshops: " << cs.kol_cekhov << endl;
+    out << "the number of workshops in operation: " << cs.kol_cekhov_v_rabote << endl;
+    out << "the efficiency: " << cs.efficiency << endl;
     return out;
 }
 
-istream& operator >>(istream& in, KC& k1)
+istream& operator >>(istream& in, KC& cs)
 {
     cout << "\t*Compressor station*\n";
-  //  cout << "the ID of the new pipe: " << k1.idKC << endl;
     cout << "enter the name: ";
     in.ignore(1000, '\n');
-    getline(in, k1.name); 
+    getline(in, cs.name); 
     cout << "enter the number of workshops: ";
-    k1.kol_cekhov = GetCorrectNumber(0, 1000);
+    cs.kol_cekhov = GetCorrectNumber(0, 1000);
     cout << "enter the number of workshops in operation: ";
-    int VseKolichestvo = k1.kol_cekhov;
-    k1.kol_cekhov_v_rabote = GetCorrectNumber(0, VseKolichestvo);
+    int VseKolichestvo = cs.kol_cekhov;
+    cs.kol_cekhov_v_rabote = GetCorrectNumber(0, VseKolichestvo);
     cout << "rate the efficiency from 0 to 10: ";
-    k1.efficiency = GetCorrectNumber(0, 10);
+    cs.efficiency = GetCorrectNumber(0, 10);
     cout << endl << "Do not forget to save the new created station! Choose 3 in the menu\n";
     return in;
 }
 
-std::ifstream& operator>>(std::ifstream& fin, KC& k1)
-{
-    fin >> k1.idKC >> k1.name >> k1.kol_cekhov >> k1.kol_cekhov_v_rabote >> k1.efficiency;
-    return fin;
-}
-
-std::ofstream& operator<<(std::ofstream& fout, const KC& k1)
-{
-    fout << k1.idKC <<endl<< k1.name <<endl<< k1.kol_cekhov <<endl<< k1.kol_cekhov_v_rabote <<endl<< k1.efficiency << endl;
-    return fout;
-}
-
 KC::KC()
 {
-    idKC = MaxID++;
+    id = MaxID++;
     name = "name";
     kol_cekhov = 0;
     kol_cekhov_v_rabote=0;
@@ -88,16 +74,17 @@ void KC::RedaktKC()
 
 int KC::GetID() const
 {
-    return idKC;
-}
-
-int KC::GetMaxid()
-{
-    return MaxID;
+    return id;
 }
 
 KC::KC(std::ifstream& fin)
 {
+    fin.ignore();
+    std::getline(fin, name);
+    fin
+        >> kol_cekhov
+        >> kol_cekhov_v_rabote
+        >> efficiency;
 }
 
 std::string KC::GetName() const
